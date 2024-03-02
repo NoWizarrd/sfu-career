@@ -1,0 +1,41 @@
+.header {
+  background: #fff;
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1); 
+  height: 80px;
+}
+
+.logo{
+  margin: 0 0 0 5vw;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  :hover{
+    cursor: pointer;
+  }
+  img{
+    height: 100%;
+    margin-right: 10px;
+  }
+}
+
+
+
+.buttons{
+  margin-right: 10vw;
+  font-size: 1.5rem;
+  display: flex;
+  :hover{
+    cursor: pointer;
+  }
+
+  :first-child {
+    margin-right: 25px;
+  }
+}
