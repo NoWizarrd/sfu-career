@@ -1,9 +1,9 @@
 .header {
   background: #fff;
   display: flex;
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   color: #000000;
@@ -24,8 +24,6 @@
     margin-right: 10px;
   }
 }
-
-
 
 .buttons{
   margin-right: 10vw;

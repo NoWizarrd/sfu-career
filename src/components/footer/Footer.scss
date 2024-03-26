@@ -1,8 +1,6 @@
 .footer {
     display: flex;
-    position: fixed;
-    left: 0;
-    right: 0;
+    position: sticky;
     bottom: 0;
     justify-content: space-between;
     align-items: center;
@@ -17,10 +15,12 @@
     justify-content: space-between;
     align-items: center;
     color: #FFFFFF;
-    div {
+    a {
         width: 200px;
         cursor: pointer;
+        color: #FFFFFF !important;
     }
+
 }
 
 .contacts {
