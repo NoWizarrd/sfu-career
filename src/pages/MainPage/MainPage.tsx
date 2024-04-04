@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import "./MainPage.scss";
+import styles from "./MainPage.module.scss";
 
 export default function MainPage() {
     return (
-        <div className="main">
+        <div className={styles.main}>
             <h1>
                 Приветствуем вас на SFUКарьера – инновационной онлайн-платформе,
                 посвященной объединению студенческих талантов и предприятий,
                 ищущих перспективных специалистов.
             </h1>
-            <div className="blocks">
-                <div className="info">
+            <div className={styles.blocks}>
+                <div className={styles.info}>
                     <h2>🌐 Компаниям</h2>
                     <p>
                         Находите таланты, соответствующие вашим потребностям.
@@ -18,7 +18,7 @@ export default function MainPage() {
                         студентов, их опыту и профессиональным целям.
                     </p>
                 </div>
-                <div className="info">
+                <div className={styles.info}>
                     <h2>🎓 Студентам</h2>
                     <p>
                         Отмечайте свои достижения, предоставляйте информацию о
@@ -27,7 +27,7 @@ export default function MainPage() {
                         и привлечь внимание потенциальных работодателей.
                     </p>
                 </div>
-                <div className="info">
+                <div className={styles.info}>
                     <h2>🤝 Удобство</h2>
                     <p>
                         Мы стремимся к созданию простого взаимодействия между
@@ -36,8 +36,8 @@ export default function MainPage() {
                     </p>
                 </div>
             </div>
-            <Link to={"/authorization"}>
-                <button>Авторизироваться</button>
+            <Link to={"/login"}>
+                <button className={styles.enterBtn}>Авторизироваться</button>
             </Link>
         </div>
     );

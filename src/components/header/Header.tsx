@@ -1,22 +1,22 @@
-import "./Header.scss";
+import styles from "./Header.module.scss";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
 export default function Header() {
     return (
-        <header className="header">         
+        <header className={styles.header}>         
             <Link to={"/"}>  
-                <div className="logo">
+                <div className={styles.logo}>
                     <img src={logo} alt="logo" />
                     <div>SFU-Карьера</div>
                 </div>
             </Link>
             
 
-            <div className="buttons">
+            <div className={styles.buttons}>
 
-                <Link to={"/authorization"}> Регистрация</Link>
-                <Link to={"/authorization"}> Вход</Link>
+                <Link to={"/registration"}> Регистрация</Link>
+                <Link to={"/login"}> Вход</Link>
             </div>
         </header>
     );

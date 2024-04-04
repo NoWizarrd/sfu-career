@@ -1,0 +1,69 @@
+.enterForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    min-height: 300px;
+    min-width: 300px;
+    gap: 34px;
+}
+
+.input {
+    border: black 1px solid;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    width: 435px;
+    height: 55px;
+    font-size: 22px;
+    position: relative;
+    padding-left: 60px;
+    &[type=email] {
+        background: url(../../assets/login.png) no-repeat scroll 7px 7px;
+    }
+    &[name=password1] {
+        background: url(../../assets/password.png) no-repeat scroll 7px 7px;
+        font-family: Verdana;
+        &::placeholder{
+            font-family: "Montserrat";
+        }       
+    }
+    &[name=password2] {
+        background: url(../../assets/password_2.png) no-repeat scroll 7px 7px;
+        font-family: Verdana;
+        &::placeholder{
+            font-family: "Montserrat";
+        }     
+    }
+}
+
+.header {
+    color: black;
+    font-size: 30px;
+}
+
+.submitBtn{
+    cursor: pointer;
+    font-size: 28px;
+    border: black 1px solid;
+    height: 60px;
+    border-radius: 15px;
+    transition: ease-in 0.2s;
+    background: radial-gradient(circle,rgba(249, 178, 26, 1),rgba(255, 157, 10, 1));
+    width: 435px;
+    height: 55px;
+    &:hover{
+        color:#FFFFFF;
+    }
+}
+
+.backBtn{
+    color: black;
+    margin-top: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: absolute;
+    &:hover{
+        text-decoration: underline;
+    }
+}
