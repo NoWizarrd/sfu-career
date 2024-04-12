@@ -5,7 +5,7 @@ export default function LoginPage() {
   return (
     <div className={styles.main}>
       <div className={styles.block}>
-        <AuthorizationForm type={"login"}/>
+        <AuthorizationForm/>
       </div>
     </div>
   )

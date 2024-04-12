@@ -1,0 +1,98 @@
+.pageBackground {
+    background-color: #f5f5f5; /* Цвет заднего фона страницы */
+    min-height: 100vh; /* Минимальная высота равная высоте экрана */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.root {
+    width: 70%; /* Ширина контейнера с информацией */
+    background-color: #ffffff; /* Белый цвет фона */
+    padding: 20px; /* Отступы для контента */
+    border-radius: 20px; /* Закругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    box-sizing: border-box;
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.contentContainer {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profilePhoto {
+    margin-right: 20px;
+    flex-shrink: 0; /* Запрещаем уменьшение фото по ширине */
+}
+
+.photo {
+    width: 150px; /* Ширина фото */
+    height: 250px; /* Автоматическая высота для сохранения пропорций */
+    border-radius: 10px;
+    object-fit: cover; /* Заполнение контейнера фото */
+}
+
+.profileInfoBlock,
+.profileSkillsBlock {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fafafa; /* Цвет фона блоков контента */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Занимаем все доступное пространство */
+}
+
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333; /* Черный цвет текста */
+}
+
+.profileDetails {
+    margin-top: 10px;
+}
+
+.profileItem {
+    margin-bottom: 8px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.skillsList {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        font-size: 16px;
+        color: #666; /* Серый цвет текста */
+        margin-bottom: 5px;
+    }
+}
+
+p {
+    font-size: 16px;
+    color: #333; /* Черный цвет текста */
+}
+
+.editButton {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Цвет кнопки */
+    color: #ffffff; /* Цвет текста кнопки */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3; /* Цвет кнопки при наведении */
+    }
+}

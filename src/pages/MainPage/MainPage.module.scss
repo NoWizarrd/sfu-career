@@ -15,7 +15,6 @@
 }
 
 .info{
-    font-size: 1.2rem;
     display: flex;
     position: relative;
     justify-content: start;
@@ -23,12 +22,16 @@
     align-items: center;
     text-align: center;
     padding: 20px;
+    box-shadow: 9px 8px 20px rgba($color: #FFFFFF, $alpha: 0.3);
     width: 450px;
     height: 300px;
     border-radius: 10px;
     margin: 0 40px;
     color: black;
     background-color: #FFFFFF;
+    p{
+        font-size: 1.2rem;
+    }
     h2{
         font-weight: 500;
         margin-bottom: 30px;

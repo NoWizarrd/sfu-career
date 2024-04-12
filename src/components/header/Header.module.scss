@@ -11,29 +11,55 @@
   height: 80px;
 }
 
-.logo{
-  margin: 0 0 0 5vw;
-  font-size: 2rem;
+.headerAuth {
+  background: #fff;
   display: flex;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  justify-content: start;
+  gap: 150px;
   align-items: center;
-  :hover{
-    cursor: pointer;
-  }
-  img{
-    height: 100%;
-    margin-right: 10px;
-  }
+  color: #000000;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1); 
+  height: 80px;
 }
 
-.buttons{
+.notAuth{
   margin-right: 10vw;
   font-size: 1.5rem;
   display: flex;
-  :hover{
-    cursor: pointer;
-  }
 
   :first-child {
     margin-right: 25px;
+  }
+}
+
+.button1{
+  transition: 0.2s ease-in-out;
+  height: 78px;
+  padding: 5px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-right: 40vw;
+  &:hover{
+    cursor: pointer;
+    background-color: #F9B21A;
+  }
+}
+
+.button2{
+  transition: 0.2s ease-in-out;
+  height: 78px;
+  padding: 5px;
+  align-items: center;
+  display: flex;
+  background-color: #fff;
+  font-size: 1.5rem;
+  &:hover{
+    cursor: pointer;
+    background-color: #F9B21A;
   }
 }

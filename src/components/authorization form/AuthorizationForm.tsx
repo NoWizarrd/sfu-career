@@ -1,38 +1,38 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./AuthorizationForm.module.scss";
+import axios from "axios";
 
-// const submitClick = (event: MouseEvent) =>{
-//     event.preventDefault()
-// }
-export default function AuthorizationForm({ type }: { type: string }) {
-    if (type === "login") {
-        return (
-            <form className={styles.enterForm}>
-                <p className={styles.header}>Вход</p>
-                <input className={styles.input} type="email" placeholder="Email"/>
-                <input className={styles.input} name="password1" type="password" placeholder="Пароль"/>
-                <div>
-                    <button className={styles.submitBtn} type="submit"> Войти </button>
-                    <Link to={"/registration"}>
-                        <p className={styles.backBtn}>Нет аккаунта?</p>
-                    </Link>
-                </div>
-            </form>
-        );
-    } else if (type === "register") {
-        return(
-            <form className={styles.enterForm}>
-            <p className={styles.header}>Регистрация</p>
-            <input className={styles.input} type="email" placeholder="Email"/>
-            <input className={styles.input} name="password1" type="password" placeholder="Пароль"/>
-            <input className={styles.input} name="password2" type="password" placeholder="Подтвердить пароль"/>
+export default function AuthorizationForm() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleLoginSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:4444/students/login", { email, password });
+            if (response.status === 200) {
+                console.log("Успешный вход");
+                navigate("/profile");
+            } else {
+                console.log("Ошибка входа");
+            }
+        } catch (error) {
+            console.error("Ошибка при отправке данных на сервер:", error);
+        }
+    };
+    return (
+        <form className={styles.enterForm} onSubmit={handleLoginSubmit}>
+            <p className={styles.header}>Вход</p>
+            <input className={styles.input} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input className={styles.input} name="password1" type="password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
             <div>
-                <button className={styles.submitBtn} type="submit">Зарегистрироваться</button>
-                <Link to={"/login"}>
-                    <p className={styles.backBtn}>Есть аккаунт?</p>
+                <button className={styles.submitBtn} type="submit"> Войти </button>
+                <Link to={"/registration"}>
+                    <p className={styles.backBtn}>Нет аккаунта?</p>
                 </Link>
             </div>
         </form>
-        )
-    }
+    );
 }
