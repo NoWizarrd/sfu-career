@@ -12,22 +12,14 @@
 }
 
 .headerAuth {
-  background: #fff;
-  display: flex;
-  position: sticky;
-  top: 0;
-  width: 100%;
+  @extend .header;
   justify-content: start;
   gap: 150px;
-  align-items: center;
-  color: #000000;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); 
-  height: 80px;
 }
 
 .notAuth{
   margin-right: 10vw;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   display: flex;
 
   :first-child {
@@ -42,7 +34,7 @@
   background-color: #fff;
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-right: 40vw;
   &:hover{
     cursor: pointer;
@@ -57,7 +49,7 @@
   align-items: center;
   display: flex;
   background-color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   &:hover{
     cursor: pointer;
     background-color: #F9B21A;
