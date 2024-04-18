@@ -1,98 +1,101 @@
-.pageBackground {
-    background-color: #f5f5f5; /* Цвет заднего фона страницы */
-    min-height: 100vh; /* Минимальная высота равная высоте экрана */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.pageContainer {
+  background-color: #f1f1f1;
+  color: #333;
+  padding: 20px;
+  height: calc(100vh - 160px);
 }
 
-.root {
-    width: 70%; /* Ширина контейнера с информацией */
-    background-color: #ffffff; /* Белый цвет фона */
-    padding: 20px; /* Отступы для контента */
-    border-radius: 20px; /* Закругление углов */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
-    box-sizing: border-box;
+.studentProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px; 
 }
 
-.profileContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.contentContainer {
-    display: flex;
-    align-items: flex-start;
+.profileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #2b2b2b;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .profilePhoto {
-    margin-right: 20px;
-    flex-shrink: 0; /* Запрещаем уменьшение фото по ширине */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
 }
 
-.photo {
-    width: 150px; /* Ширина фото */
-    height: 250px; /* Автоматическая высота для сохранения пропорций */
-    border-radius: 10px;
-    object-fit: cover; /* Заполнение контейнера фото */
-}
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 
-.profileInfoBlock,
-.profileSkillsBlock {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fafafa; /* Цвет фона блоков контента */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1; /* Занимаем все доступное пространство */
-}
-
-
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333; /* Черный цвет текста */
+  p {
+    margin: 5px 0;
+    font-size: 18px;
+  }
 }
 
 .profileDetails {
-    margin-top: 10px;
-}
-
-.profileItem {
-    margin-bottom: 8px;
-}
-
-strong {
+  width: 100%;
+  padding: 20px;
+  background-color: #2b2b2b;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
     font-weight: bold;
+  }
 }
 
-.skillsList {
-    list-style-type: none;
-    padding: 0;
-
-    li {
-        font-size: 16px;
-        color: #666; /* Серый цвет текста */
-        margin-bottom: 5px;
-    }
-}
-
-p {
-    font-size: 16px;
-    color: #333; /* Черный цвет текста */
+.profileDetailsSection {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .editButton {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Цвет кнопки */
-    color: #ffffff; /* Цвет текста кнопки */
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  background-color: #1a75d6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  &:hover{
+    background-color: #025ab8;
+  }
+}
 
-    &:hover {
-        background-color: #0056b3; /* Цвет кнопки при наведении */
-    }
+.practicesButton {
+  padding: 5px 5px;
+  background-color: #ffffff;
+  color: black;
+  border: #131313 solid 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  &:hover{
+    background-color: #c0c1ca;
+  }
 }

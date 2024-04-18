@@ -15,6 +15,7 @@ export default function AuthorizationForm() {
             if (response.status === 200) {
                 console.log("Успешный вход");
                 navigate("/profile");
+                window.localStorage.setItem('token', response.data.token)
             } else {
                 console.log("Ошибка входа");
             }

@@ -4,20 +4,20 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
     const isAuth = true;
-    const isStudent = false;
+    const isStudent = true;
 
     return (
         <header className={isAuth ? styles.headerAuth : styles.header}>
             <Logo />
             {!isAuth ? (
-                <div className={styles.notAuth}>
-                    <Link to={"/registration"} className={styles.button1}>
+                <>
+                    <Link to={"/registration"} className={styles.button1Auth}>
                         Регистрация
                     </Link>
                     <Link to={"/login"} className={styles.button2}>
-                       Вход
+                        Вход
                     </Link>
-                </div>
+                </>    
             ) : (
                 <>
                     {isStudent ? (

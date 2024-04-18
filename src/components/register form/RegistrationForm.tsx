@@ -30,6 +30,7 @@ const handleRegisterSubmit = async (event: React.FormEvent) => {
         if (response.status === 200) {
             console.log("Успешная регистрация");
             navigate("/profile");
+            window.localStorage.setItem('token', response.data.token)
         } else {
             console.log("Ошибка регистрации");
         }

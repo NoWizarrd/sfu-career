@@ -14,28 +14,18 @@
 .headerAuth {
   @extend .header;
   justify-content: start;
-  gap: 150px;
-}
-
-.notAuth{
-  margin-right: 10vw;
-  font-size: 1.3rem;
-  display: flex;
-
-  :first-child {
-    margin-right: 25px;
-  }
 }
 
 .button1{
-  transition: 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   height: 78px;
   padding: 5px;
   background-color: #fff;
   display: flex;
   align-items: center;
+  position: absolute;
+  left: 25vw;
   font-size: 1.3rem;
-  margin-right: 40vw;
   &:hover{
     cursor: pointer;
     background-color: #F9B21A;
@@ -43,15 +33,11 @@
 }
 
 .button2{
-  transition: 0.2s ease-in-out;
-  height: 78px;
-  padding: 5px;
-  align-items: center;
-  display: flex;
-  background-color: #fff;
-  font-size: 1.3rem;
-  &:hover{
-    cursor: pointer;
-    background-color: #F9B21A;
-  }
+  @extend .button1;
+  left: 80vw;
+}
+
+.button1Auth{
+  @extend .button1;
+  left: 70vw;
 }

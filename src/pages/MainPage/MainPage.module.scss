@@ -7,11 +7,12 @@
     background: #292B29;
     color: #FFFFFF;
     height: calc(100vh - 160px);
+    width: 100vw;
 }
 
 .blocks{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .info{
@@ -21,10 +22,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
     box-shadow: 9px 8px 20px rgba($color: #FFFFFF, $alpha: 0.3);
-    width: 450px;
-    height: 300px;
+    max-width: 450px;
+    max-height: 300px;
     border-radius: 10px;
     margin: 0 40px;
     color: black;
@@ -63,4 +64,21 @@ h1{
     }
 }
 
-
+@media (max-width: 768px) {
+    .main {
+       height: auto;
+    }
+    .blocks {
+       flex-direction: column;
+    }
+    .info {
+       width: 100%;
+       margin: 20px 0;
+    }
+    h1 {
+       width: 100%;
+    }
+    .enterBtn {
+       width: 100%;
+    }
+   }
