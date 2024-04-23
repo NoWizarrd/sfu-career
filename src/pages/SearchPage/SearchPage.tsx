@@ -15,7 +15,7 @@ interface Student {
 }
 
 interface SearchFilters {
-    personalSkills: string[]; // Явно указываем тип для personalSkills
+    personalSkills: string[];
     course: string;
     institute: string;
 }
@@ -81,7 +81,6 @@ const SearchPage: React.FC = () => {
                                 <option value="">Выберите навык</option>
                                 <option value="programming">Программирование</option>
                                 <option value="design">Дизайн</option>
-                                {/* Другие опции... */}
                             </select>
     </div>
     <div className={styles.filterOption}>
@@ -91,7 +90,7 @@ const SearchPage: React.FC = () => {
             value={searchFilters.course}
             onChange={handleFilterChange}
         >
-            <option value="">Выберите курс</option>
+            <option value="">Все</option>
             <option value="1">1 курс</option>
             <option value="2">2 курс</option>
             <option value="3">3 курс</option>
@@ -123,10 +122,10 @@ const SearchPage: React.FC = () => {
                                 <div className={styles.resultItem} key={student._id}>
                                     <div className={styles.resultContent}>
                                         <h3>{student.surname} {student.name} {student.patronymic}</h3>
-                                        <p>Институт: {student.institute}</p>
-                                        <p>Курс: {student.course}</p>
-                                        <p>Специальность: {student.specialty}</p>
-                                        <p>Навыки: {student.personalSkills.join(', ')}</p>
+                                        <p><strong>Институт:</strong> {student.institute}</p>
+                                        <p><strong>Курс:</strong> {student.course}</p>
+                                        <p><strong>Специальность:</strong> {student.specialty}</p>
+                                        <p><strong>Навыки:</strong> {student.personalSkills.join(', ')}</p>
                                     </div>
                                     <button
                                         className={styles.profileButton}
