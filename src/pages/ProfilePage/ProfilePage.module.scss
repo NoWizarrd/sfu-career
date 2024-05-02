@@ -1,5 +1,5 @@
 .pageContainer {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   color: #333;
   padding: 20px;
   height: calc(100vh - 160px);
@@ -10,10 +10,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #fff;
-  color: #333;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   width: 80%;
   margin: 0 auto;
   margin-top: 20px; 
@@ -25,9 +22,10 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 20px;
-  background-color: #2b2b2b;
+  background-color: #808080;
   border-radius: 10px;
   padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3)
 }
 
 .profilePhoto {
@@ -53,10 +51,10 @@
 .profileDetails {
   width: 100%;
   padding: 20px;
-  background-color: #2b2b2b;
+  background-color: #808080;
   color: #333;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
   h2 {
     margin-bottom: 10px;

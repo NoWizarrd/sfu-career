@@ -16,6 +16,7 @@ export default function AuthorizationForm() {
                 console.log("Успешный вход");
                 navigate("/profile");
                 window.localStorage.setItem('token', response.data.token)
+                window.localStorage.setItem('_id', response.data._id)
             } else {
                 console.log("Ошибка входа");
             }

@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import styles from "./ProfilePage.module.scss";
 
 interface StudentData {
+  _id: string;
   surname: string;
   name: string;
   patronymic: string;
@@ -15,6 +16,8 @@ interface StudentData {
   about: string;
 }
 
+
+
 const StudentProfile: React.FC = () => {
   const {
     data: studentData,
@@ -22,7 +25,8 @@ const StudentProfile: React.FC = () => {
     isLoading,
   } = useQuery<StudentData>("student", async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:4444/students/660e718fecbc71be7f89091e', {
+    const id = window.localStorage.getItem("_id")
+    const response = await fetch(`http://localhost:4444/students/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
