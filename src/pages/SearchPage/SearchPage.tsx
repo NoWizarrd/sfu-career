@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import styles from "./SearchPage.module.scss";
-
+import { Link } from "react-router-dom";
 interface Student {
     _id: string;
     surname: string;
@@ -69,10 +69,6 @@ const SearchPage: React.FC = () => {
                     .toLowerCase()
                     .includes(searchFilters.institute.toLowerCase()))
     );
-
-    const handleProfileOpen = (studentId: string) => {
-        console.log(`Открыть профиль студента с ID: ${studentId}`);
-    };
 
     return (
         <div className={styles.root}>
@@ -155,14 +151,7 @@ const SearchPage: React.FC = () => {
                                             {student.personalSkills.join(", ")}
                                         </p>
                                     </div>
-                                    <button
-                                        className={styles.profileButton}
-                                        onClick={() =>
-                                            handleProfileOpen(student._id)
-                                        }
-                                    >
-                                        Подробнее
-                                    </button>
+                                    <Link to={`/profile/${student._id}`} className={styles.profileButton}>Подробнее</Link>
                                 </div>
                             ))}
                         </>

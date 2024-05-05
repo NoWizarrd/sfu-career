@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <NotFoundPage />,
       },
       {
-        path: "profile",
+        path: "profile/:profileId",
         element: <ProfilePage />,
       },
       {
@@ -47,7 +47,7 @@ const queryClient = new QueryClient()
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </QueryClientProvider>
       
   )

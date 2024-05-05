@@ -1,6 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom"; 
 import styles from "./ProfilePage.module.scss";
+import noAvatar from "../../assets/noAvatar.jpg"
 
 interface StudentData {
   _id: string;
@@ -16,16 +18,8 @@ interface StudentData {
   about: string;
 }
 
-
-
-const StudentProfile: React.FC = () => {
-  const {
-    data: studentData,
-    isError,
-    isLoading,
-  } = useQuery<StudentData>("student", async () => {
-    const token = localStorage.getItem('token');
-    const id = window.localStorage.getItem("_id")
+const getStudent = async (id: string): Promise<StudentData> => {
+    const token = localStorage.getItem('token')
     const response = await fetch(`http://localhost:4444/students/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -38,25 +32,32 @@ const StudentProfile: React.FC = () => {
 
     const data = await response.json();
     return data;
-  });
+}
+
+const StudentProfile: React.FC = () => {
+  const { profileId } = useParams();
+  const {
+    data: studentData,
+    isError,
+    isLoading,
+  } = useQuery<StudentData>(["student", profileId], () => getStudent(profileId!));
 
   if (isLoading) return(
     <div className={styles.pageContainer}>
         <div>Loading...</div>
     </div>
-    )
+  )
   if (isError || !studentData) return(
     <div className={styles.pageContainer}>
         <div>Error loading the student data.</div>
     </div>
-    )
-
+  )
   return (
     <div className={styles.pageContainer}>
         <div className={styles.studentProfile}>
         <div className={styles.profileHeader}>
             <img
-            src={studentData.avatarUrl}
+            src={studentData.avatarUrl ? studentData.avatarUrl : noAvatar}
             alt="avatar"
             className={styles.profilePhoto}
             />

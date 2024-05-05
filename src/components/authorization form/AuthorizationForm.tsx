@@ -14,9 +14,10 @@ export default function AuthorizationForm() {
             const response = await axios.post("http://localhost:4444/students/login", { email, password });
             if (response.status === 200) {
                 console.log("Успешный вход");
-                navigate("/profile");
                 window.localStorage.setItem('token', response.data.token)
                 window.localStorage.setItem('_id', response.data._id)
+                navigate(`/profile/${response.data._id}`)
+                location.reload()
             } else {
                 console.log("Ошибка входа");
             }
