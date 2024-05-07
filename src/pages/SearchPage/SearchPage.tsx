@@ -131,24 +131,27 @@ const SearchPage: React.FC = () => {
                                 >
                                     <div className={styles.resultContent}>
                                         <h3>
-                                            {student.surname} {student.name}{" "}
-                                            {student.patronymic}
+                                            {student.surname} {student.name} {student.patronymic}
                                         </h3>
                                         <p>
-                                            <strong>Институт:</strong>{" "}
+                                            <strong>Институт: </strong>
                                             {student.institute}
                                         </p>
                                         <p>
-                                            <strong>Курс:</strong>{" "}
+                                            <strong>Курс: </strong>
                                             {student.course}
                                         </p>
                                         <p>
-                                            <strong>Специальность:</strong>{" "}
+                                            <strong>Специальность: </strong>
                                             {student.specialty}
                                         </p>
                                         <p>
-                                            <strong>Навыки:</strong>{" "}
-                                            {student.personalSkills.join(", ")}
+                                            <strong>Навыки: </strong>
+                                            {student.personalSkills.length 
+                                            ?
+                                            student.personalSkills.join(", ")
+                                            :
+                                            "Не указаны"}
                                         </p>
                                     </div>
                                     <Link to={`/profile/${student._id}`} className={styles.profileButton}>Подробнее</Link>
