@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom"; 
+import { useNavigate, useParams } from "react-router-dom"; 
 import styles from "./ProfilePage.module.scss";
 import noAvatar from "../../assets/noAvatar.jpg"
 
@@ -34,13 +34,22 @@ const getStudent = async (id: string): Promise<StudentData> => {
     return data;
 }
 
+
 const StudentProfile: React.FC = () => {
   const { profileId } = useParams();
+  const navigate = useNavigate();
   const {
     data: studentData,
     isError,
     isLoading,
   } = useQuery<StudentData>(["student", profileId], () => getStudent(profileId!));
+
+  function exitFromProfile() {
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('_id')
+    navigate('/login');
+    location.reload()
+}
 
   if (isLoading) return(
     <div className={styles.pageContainer}>
@@ -82,6 +91,7 @@ const StudentProfile: React.FC = () => {
             <p>{studentData.about}</p>
             </div>
             <button className={styles.editButton}>Изменить данные</button>
+            <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
         </div>
         </div>
     </div>

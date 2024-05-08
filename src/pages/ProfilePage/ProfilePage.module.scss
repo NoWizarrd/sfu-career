@@ -72,7 +72,7 @@
 
 .editButton {
   padding: 10px 20px;
-  background-color: #1a75d6;
+  background-color: rgb(245, 168, 26);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -80,7 +80,21 @@
   transition: background-color 0.3s ease;
   margin-top: 20px;
   &:hover{
-    background-color: #025ab8;
+    background-color: rgb(231, 151, 3);
+  }
+}
+
+.exitButton {
+  padding: 10px 20px;
+  background-color: rgb(223, 67, 62);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  &:hover{
+    background-color: rgb(248, 32, 32);
   }
 }
 

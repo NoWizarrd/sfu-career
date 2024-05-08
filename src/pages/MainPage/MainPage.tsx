@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 
 export default function MainPage() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        navigate('/search');
+      }
+    }, [navigate]);
+
     return (
         <div className={styles.main}>
             <h1>
