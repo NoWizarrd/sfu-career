@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
+import Select from 'react-select';
+
 interface Student {
     _id: string;
     surname: string;
@@ -20,6 +22,14 @@ interface SearchFilters {
     institute: string;
 }
 
+interface Skill {
+    _id: string;
+    skill: string;
+    __v: number;
+}
+
+type SkillsData = { value: string; label: string };
+
 async function fetchStudents() {
     const token = localStorage.getItem("token");
     const response = await fetch(`http://localhost:4444/students`, {
@@ -37,14 +47,42 @@ async function fetchStudents() {
     return data;
 }
 
+const fetchSkills = async ():Promise<SkillsData[]> => {
+    const token = localStorage.getItem('token')
+    try {
+        const response = await fetch('http://localhost:4444/skills', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+              },
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data: Skill[] = await response.json();
+        return data.map(skill => ({ value: skill._id, label: skill.skill }));
+    } catch (error) {
+        console.error('Ошибка при получении данных о навыках:', error);
+        return [];
+    }
+};
+
 const SearchPage: React.FC = () => {
+    const [skills, setSkills] = useState<SkillsData[]>([]);
+    const [selectedSkills, setSelectedSkills] = useState<SkillsData[]>([]);
+
     const [searchFilters, setSearchFilters] = useState<SearchFilters>({
         personalSkills: [],
         course: "",
         institute: "",
     });
+    useEffect(() => {
+        fetchSkills().then(data => {
+            data.sort((a,b)=> (a.label).localeCompare(b.label))
+            setSkills(data)
+    })
+    }, []);
 
-    const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", fetchStudents, {keepPreviousData: true});
+const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", fetchStudents, {keepPreviousData: true});
 
     const handleFilterChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -56,19 +94,24 @@ const SearchPage: React.FC = () => {
         }));
     };
 
-    const filteredResults = searchResults?.filter(
-        (student) =>
-            (searchFilters.personalSkills.length === 0 ||
-                student.personalSkills.some((skill) =>
-                    searchFilters.personalSkills.includes(skill)
-                )) &&
-            (searchFilters.course === "" ||
-                student.course.toString() === searchFilters.course) &&
-            (searchFilters.institute === "" ||
-                student.institute
-                    .toLowerCase()
-                    .includes(searchFilters.institute.toLowerCase()))
-    );
+    const handleSkillChange = (selectedOptions: SkillsData[]) => {
+        setSelectedSkills(selectedOptions);
+        setSearchFilters(prevFilters => ({
+            ...prevFilters,
+            personalSkills: selectedOptions.map(option => option.value)
+        }));
+    };
+
+    const filteredResults = searchResults?.filter((student) =>
+        (searchFilters.personalSkills.length === 0 ||
+          selectedSkills.every((selectedSkill) =>
+            student.personalSkills.includes(selectedSkill.label)
+          )) &&
+        (searchFilters.course === "" ||
+          student.course.toString() === searchFilters.course) &&
+        (searchFilters.institute === "" ||
+          student.institute.toLowerCase().includes(searchFilters.institute.toLowerCase()))
+      );
 
     return (
         <div className={styles.root}>
@@ -77,17 +120,16 @@ const SearchPage: React.FC = () => {
                     <div className={styles.filterOptions}>
                         <div className={styles.filterOption}>
                             <label htmlFor="skill">Навык:</label>
-                            <select
-                                id="skill"
-                                value={searchFilters.personalSkills}
-                                onChange={handleFilterChange}
-                            >
-                                <option value="">Выберите навык</option>
-                                <option value="programming">
-                                    Программирование
-                                </option>
-                                <option value="design">Дизайн</option>
-                            </select>
+                            <Select
+                                id='skill'
+                                isMulti
+                                options={skills}
+                                className={styles.skillSelect}
+                                onChange={handleSkillChange}
+                                value={selectedSkills}
+                                placeholder="Выберите навыки..."
+                                
+                            />
                         </div>
                         <div className={styles.filterOption}>
                             <label htmlFor="course">Курс:</label>
@@ -122,9 +164,9 @@ const SearchPage: React.FC = () => {
                         <div>Загрузка...</div>
                     ) : error ? (
                         <div>Ошибка загрузки данных.</div>
-                    ) : (
+                    ) : filteredResults && filteredResults.length > 0 ? (
                         <>
-                            {filteredResults?.map((student) => (
+                            {filteredResults.map((student) => (
                                 <div
                                     className={styles.resultItem}
                                     key={student._id}
@@ -158,6 +200,8 @@ const SearchPage: React.FC = () => {
                                 </div>
                             ))}
                         </>
+                    ) : (
+                        <div className={styles.noResult}>Нет совпадений</div>
                     )}
                 </div>
             </div>
