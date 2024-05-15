@@ -1,12 +1,24 @@
 import styles from "./Header.module.scss";
 import Logo from "../logo/Logo";
 import { Link } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
+
+interface JWT {
+    _id: string,
+    exp: number,
+    iat: number  
+}
 
 export default function Header() {
     const isAuth = true; // Это значение должно быть динамическим на основе токена
     const isStudent = true; // Это значение должно определяться на основе роли пользователя
-    const myId = window.localStorage.getItem("_id")
 
+    const token = localStorage.getItem('token');
+    let myId: string | undefined
+    if(token){
+        const { _id } = jwtDecode<JWT>(token)
+        myId = _id
+    }
     return (
         <header className={isAuth ? styles.headerAuth : styles.header}>
             <Logo />

@@ -46,7 +46,6 @@ const StudentProfile: React.FC = () => {
 
   function exitFromProfile() {
     window.localStorage.removeItem('token')
-    window.localStorage.removeItem('_id')
     navigate('/login');
     location.reload()
 }
