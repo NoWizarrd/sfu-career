@@ -9,7 +9,7 @@ export default function RegistrationPage() {
 
   useEffect(() => {
       if (checkAuth()) {
-          navigate('/search');
+          navigate('/');
       }
   }, [navigate]);
   return (

@@ -9,7 +9,7 @@ export default function LoginPage() {
 
   useEffect(() => {
       if (checkAuth()) {
-          navigate('/search');
+          navigate('/');
       }
   }, [navigate]);
   return (

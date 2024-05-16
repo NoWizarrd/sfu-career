@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
 import Select from 'react-select';
+import Loader from "../../components/loader/Loader";
 
 interface CompanyData {
     _id: string;
@@ -116,6 +117,8 @@ const SearchVacanciesPage: React.FC = () => {
         (searchFilters.title === "" ||
             vacancy.title.toLowerCase().includes(searchFilters.title.toLowerCase()))
     );
+    
+    if (isLoading) return(<Loader/>)
 
     return (
         <div className={styles.root}>
@@ -149,9 +152,7 @@ const SearchVacanciesPage: React.FC = () => {
                 </div>
 
                 <div className={styles.searchResults}>
-                    {isLoading ? (
-                        <div>Загрузка...</div>
-                    ) : error ? (
+                    {error ? (
                         <div>Ошибка загрузки данных.</div>
                     ) : filteredResults && filteredResults.length > 0 ? (
                         <>
@@ -167,7 +168,9 @@ const SearchVacanciesPage: React.FC = () => {
                                             <strong>Необходимые навыки: </strong>
                                             {vacancy.requiredSkills.map(skill => skill).join(", ")}
                                         </p>
-                                        {vacancy.salary ? <p><strong>Зарплата: </strong>{vacancy.salary} руб.</p> :<p><strong>Зарплата: </strong>Не указана</p>}
+                                        {vacancy.salary 
+                                        ? <p><strong>Зарплата: </strong>{vacancy.salary} руб.</p> 
+                                        :<p><strong>Зарплата: </strong>Не указана</p>}
                                     </div>
                                     <Link to={`/vacancy/${vacancy._id}`} className={styles.profileButton}>Подробнее</Link>
                                 </div>

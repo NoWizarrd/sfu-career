@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import styles from "./VacancyDetailPage.module.scss";
+import Loader from "../../components/loader/Loader";
 
 interface VacancyData {
     _id: string;
@@ -44,7 +45,8 @@ const VacancyDetailPage: React.FC = () => {
     const { vacancyId } = useParams<{ vacancyId: string }>();
     const { data: vacancy, isLoading, error } = useQuery<VacancyData>(["vacancy", vacancyId], () => fetchVacancy(vacancyId!));
 
-    if (isLoading) return <div className={styles.pageContainer}>Загрузка...</div>;
+    
+    if (isLoading) return <Loader/>
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
 
     return (

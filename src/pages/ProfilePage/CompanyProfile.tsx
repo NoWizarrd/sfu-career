@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./ProfilePage.module.scss";
 import noAvatar from "../../assets/noAvatar.jpg";
 import {jwtDecode} from 'jwt-decode';
+import Loader from "../../components/loader/Loader";
 
 interface CompanyData {
     _id: string;
@@ -60,11 +61,7 @@ const CompanyProfile: React.FC = () => {
     location.reload()
 }
 
-  if (isLoading) return(
-    <div className={styles.pageContainer}>
-        <div>Loading...</div>
-    </div>
-  )
+  if (isLoading) return(<Loader/>)
   if (isError || !companyData) return(
     <div className={styles.pageContainer}>
         <div>Error loading the company data.</div>

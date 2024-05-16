@@ -3,6 +3,7 @@ import styles from "./MainPage.module.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import checkAuth from "../../scripts/checkAuth";
+import Loader from "../../components/loader/Loader";
 
 
 export default function MainPage() {
@@ -23,7 +24,7 @@ export default function MainPage() {
     }, [navigate]);
 
     if (loading) {
-        return <div className={styles.loader}>Loading...</div>;
+        return <Loader/>;
     }
 
     return (

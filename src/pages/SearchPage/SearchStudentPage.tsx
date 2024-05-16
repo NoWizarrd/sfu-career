@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
 import Select from 'react-select';
+import Loader from "../../components/loader/Loader";
 
 interface Student {
     _id: string;
@@ -113,6 +114,8 @@ const SearchStudentPage: React.FC = () => {
           student.institute.toLowerCase().includes(searchFilters.institute.toLowerCase()))
       );
 
+    if (isLoading) return(<Loader/>)
+
     return (
         <div className={styles.root}>
             <div className={styles.searchContainer}>
@@ -161,9 +164,7 @@ const SearchStudentPage: React.FC = () => {
                 </div>
 
                 <div className={styles.searchResults}>
-                    {isLoading ? (
-                        <div>Загрузка...</div>
-                    ) : error ? (
+                    {error ? (
                         <div>Ошибка загрузки данных.</div>
                     ) : filteredResults && filteredResults.length > 0 ? (
                         <>
