@@ -2,6 +2,8 @@ import styles from "./Header.module.scss";
 import Logo from "../logo/Logo";
 import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
+import checkAuth from "../../scripts/checkAuth";
 
 interface JWT {
     _id: string;
@@ -9,10 +11,12 @@ interface JWT {
 }
 
 export default function Header() {
-    const isAuth = true; // Это значение должно быть динамическим на основе токена
-    const isStudent = false; // Это значение должно определяться на основе роли пользователя
-
     const token = localStorage.getItem("token");
+    const [isAuth, setIsAuth] = useState(checkAuth());
+
+    const handleLogoClick = () => {
+        setIsAuth(checkAuth());
+    };
     let myProfile: JWT | undefined;
     if (token) {
         const { _id, user } = jwtDecode<JWT>(token);
@@ -20,9 +24,15 @@ export default function Header() {
     }
     return (
         <header className={isAuth ? styles.headerAuth : styles.header}>
-            <Logo />
+            <Logo onLogoClick={handleLogoClick}/>
             {!isAuth ? (
                 <>
+                    <Link to={"/search/student"} className={styles.buttonStudent}>
+                        Студенты
+                    </Link>
+                    <Link to={"/search/vacancy"} className={styles.buttonVacancy}>
+                        Вакансии
+                    </Link>
                     <Link to={"/registration"} className={styles.button1Auth}>
                         Регистрация
                     </Link>
@@ -38,12 +48,7 @@ export default function Header() {
                     <Link to={"/search/vacancy"} className={styles.buttonVacancy}>
                         Вакансии
                     </Link>
-                    <Link
-                        to={
-                            myProfile
-                                ? `/${myProfile?.user}/${myProfile?._id}`
-                                : "/"
-                        }
+                    <Link to={myProfile ? `/${myProfile?.user}/${myProfile?._id}` : "/"}
                         className={styles.button2}
                     >
                         Профиль

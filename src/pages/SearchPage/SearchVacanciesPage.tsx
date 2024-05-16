@@ -164,15 +164,10 @@ const SearchVacanciesPage: React.FC = () => {
                                             <Link to={`/company/${vacancy.company._id}`}>{vacancy.company.name}</Link>
                                         </p>
                                         <p>
-                                            <strong>Местоположение: </strong>
-                                            {vacancy.location}
-                                        </p>
-                                        <p>
                                             <strong>Необходимые навыки: </strong>
                                             {vacancy.requiredSkills.map(skill => skill).join(", ")}
                                         </p>
                                         {vacancy.salary ? <p><strong>Зарплата: </strong>{vacancy.salary} руб.</p> :<p><strong>Зарплата: </strong>Не указана</p>}
-                                        {vacancy.benefits.length > 0 && <p><strong>Преимущества: </strong>{vacancy.benefits.join(", ")}</p>}
                                     </div>
                                     <Link to={`/vacancy/${vacancy._id}`} className={styles.profileButton}>Подробнее</Link>
                                 </div>

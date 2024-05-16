@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Logo.module.scss";
 import checkAuth from "../../scripts/checkAuth";
 
-export default function Logo(){
+interface LogoProps {
+    onLogoClick: () => void;
+}
+
+export default function Logo({ onLogoClick }: LogoProps){
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -17,6 +21,7 @@ export default function Logo(){
         } else {
             navigate('/');
         }
+        onLogoClick();
     }
 
     return (
