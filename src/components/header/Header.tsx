@@ -1,22 +1,22 @@
 import styles from "./Header.module.scss";
 import Logo from "../logo/Logo";
 import { Link } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 interface JWT {
-    _id: string,
-    user: 'student' | 'company',
+    _id: string;
+    user: "student" | "company";
 }
 
 export default function Header() {
     const isAuth = true; // Это значение должно быть динамическим на основе токена
     const isStudent = false; // Это значение должно определяться на основе роли пользователя
 
-    const token = localStorage.getItem('token');
-    let myProfile: JWT | undefined
-    if(token){
-        const { _id, user} = jwtDecode<JWT>(token)
-        myProfile = {_id, user}
+    const token = localStorage.getItem("token");
+    let myProfile: JWT | undefined;
+    if (token) {
+        const { _id, user } = jwtDecode<JWT>(token);
+        myProfile = { _id, user };
     }
     return (
         <header className={isAuth ? styles.headerAuth : styles.header}>
@@ -32,22 +32,24 @@ export default function Header() {
                 </>
             ) : (
                 <>
-                    {isStudent ? (
-                        <>
-                            <Link to={"/search"} className={styles.button1}>
-                                Вакансии
-                            </Link>
-                            <Link to={myProfile ? `/${myProfile?.user}/${myProfile?._id}` : "/"} className={styles.button2}>Профиль</Link>
-                        </>
-                    ) : (
-                        <>
-                            <Link to={"/search"} className={styles.button1}>Студенты</Link>
-                            <Link to={myProfile ? `/${myProfile?.user}/${myProfile?._id}` : "/"} className={styles.button2}>Профиль</Link>
-                        </>
-                    )}
+                    <Link to={"/search/student"} className={styles.buttonStudent}>
+                        Студенты
+                    </Link>
+                    <Link to={"/search/vacancy"} className={styles.buttonVacancy}>
+                        Вакансии
+                    </Link>
+                    <Link
+                        to={
+                            myProfile
+                                ? `/${myProfile?.user}/${myProfile?._id}`
+                                : "/"
+                        }
+                        className={styles.button2}
+                    >
+                        Профиль
+                    </Link>
                 </>
             )}
         </header>
     );
 }
-

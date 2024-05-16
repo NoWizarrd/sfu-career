@@ -1,0 +1,121 @@
+.pageContainer {
+    background-color: #ffffff;
+    color: #333;
+    padding: 20px;
+    height: calc(100vh - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+  
+  .vacancyDetailContainer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 1100px;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .vacancyHeader {
+    margin-bottom: 30px;
+  }
+  
+  .vacancyTitle {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .vacancyMeta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+      p {
+        margin-right: 20px;
+        font-size: 16px;
+    }
+  }
+
+  
+  .buttonGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .applyButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: rgb(245, 168, 26);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+        &:hover {
+        background-color: #F56C13;
+    }
+  }
+  
+  .messageButton {
+    @extend .applyButton;
+    background-color: #fff;
+    color: rgb(245, 168, 26);
+    border: 2px solid rgb(245, 168, 26);
+        &:hover {
+        background-color: rgb(245, 168, 26);
+        color: #fff;
+    }
+  }
+  
+  .companyInfo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .companyInfo h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .companyInfo p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .companyInfo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  .vacancyDetails {
+    margin-top: 20px;
+  }
+  
+  .vacancyDetails p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .vacancyDetails strong {
+    font-weight: bold;
+  }
+  
+  .sectionSeparator {
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+  

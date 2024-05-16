@@ -3,12 +3,14 @@ import Layout from "./components/layout/Layout"
 import MainPage from "./pages/MainPage/MainPage"
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage"
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"
-import SearchPage from "./pages/SearchPage/SearchPage"
+import SearchStudentPage from "./pages/SearchPage/SearchStudentPage"
 import LoginPage from "./pages/LoginPage/LoginPage"
 import { QueryClient, QueryClientProvider } from "react-query"
 import checkAuth from "./scripts/checkAuth"
 import StudentProfile from "./pages/ProfilePage/StudentProfile"
 import CompanyProfile from "./pages/ProfilePage/CompanyProfile"
+import SearchVacanciesPage from "./pages/SearchPage/SearchVacanciesPage"
+import VacancyDetailPage from "./pages/VacancyPage/VacancyDetailPage"
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: checkAuth() ? <SearchPage /> : <MainPage />,
+        element: checkAuth() ? <SearchStudentPage /> : <MainPage />,
       },
       {
         path: "registration",
@@ -40,8 +42,16 @@ const router = createBrowserRouter([
         element: <CompanyProfile />,
       },
       {
-        path: "search",
-        element: <SearchPage />,
+        path: "vacancy/:vacancyId",
+        element: <VacancyDetailPage />,
+      },
+      {
+        path: "search/student",
+        element: <SearchStudentPage />,
+      },
+      {
+        path: "search/vacancy",
+        element: <SearchVacanciesPage />,
       },
     ],
   },

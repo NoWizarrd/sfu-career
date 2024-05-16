@@ -66,7 +66,7 @@ const fetchSkills = async ():Promise<SkillsData[]> => {
     }
 };
 
-const SearchPage: React.FC = () => {
+const SearchStudentPage: React.FC = () => {
     const [skills, setSkills] = useState<SkillsData[]>([]);
     const [selectedSkills, setSelectedSkills] = useState<SkillsData[]>([]);
 
@@ -82,7 +82,7 @@ const SearchPage: React.FC = () => {
     })
     }, []);
 
-const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", fetchStudents, {keepPreviousData: true});
+    const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", fetchStudents, {keepPreviousData: true});
 
     const handleFilterChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -209,4 +209,4 @@ const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", 
     );
 };
 
-export default SearchPage;
+export default SearchStudentPage;
