@@ -10,6 +10,10 @@
     width: 100vw;
 }
 
+.loader{
+    background: #FFFFFF;
+    height: calc(100vh - 160px);
+}
 .blocks{
     display: flex;
     justify-content: space-between;

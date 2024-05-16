@@ -13,9 +13,15 @@
     flex-direction: column;
     width: 60%;
     padding: 20px;
+    padding-top: 0px;
     border-radius: 10px;
 }
 
+.header{
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 .filters {
     background-color: #c2c2c2;
     color: #fff;

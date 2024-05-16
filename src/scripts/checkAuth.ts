@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 interface JWT {
     _id: string,
     exp: number,
+    user: "student" | "company"
     iat: number  
 }
 
@@ -13,18 +14,21 @@ function isTokenExpired(token:string) {
 }
 
 function checkAuth() { 
-    //console.log('log')
     const token = localStorage.getItem('token');
     if (token) {
         if (isTokenExpired(token)) {
             localStorage.removeItem('token');
-            return false
+            return false;
         } else {
-            return true
+            const decodedToken = jwtDecode<JWT>(token);
+            if(decodedToken.user === 'student'){
+                return "student"
+            } else {
+                return "company"
+            }
         }
     } else {
-        return false
+        return false;
     }
 }
-
-export default checkAuth
+export default checkAuth;

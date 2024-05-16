@@ -116,6 +116,7 @@ const SearchStudentPage: React.FC = () => {
     return (
         <div className={styles.root}>
             <div className={styles.searchContainer}>
+            <div className={styles.header}>Поиск студентов</div>
                 <div className={styles.filters}>
                     <div className={styles.filterOptions}>
                         <div className={styles.filterOption}>

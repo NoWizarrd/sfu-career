@@ -1,18 +1,30 @@
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import checkAuth from "../../scripts/checkAuth";
 
 
 export default function MainPage() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (checkAuth()) {
-            navigate('/search');
+        const authStatus = checkAuth();
+        if (authStatus) {
+            if (authStatus === 'student') {
+                navigate('/search/vacancy');
+            } else if (authStatus === 'company') {
+                navigate('/search/student');
+            }
+        } else {
+            setLoading(false); 
         }
     }, [navigate]);
+
+    if (loading) {
+        return <div className={styles.loader}>Loading...</div>;
+    }
 
     return (
         <div className={styles.main}>

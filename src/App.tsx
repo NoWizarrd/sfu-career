@@ -6,7 +6,6 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"
 import SearchStudentPage from "./pages/SearchPage/SearchStudentPage"
 import LoginPage from "./pages/LoginPage/LoginPage"
 import { QueryClient, QueryClientProvider } from "react-query"
-import checkAuth from "./scripts/checkAuth"
 import StudentProfile from "./pages/ProfilePage/StudentProfile"
 import CompanyProfile from "./pages/ProfilePage/CompanyProfile"
 import SearchVacanciesPage from "./pages/SearchPage/SearchVacanciesPage"
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: checkAuth() ? <SearchStudentPage /> : <MainPage />,
+        element: <MainPage />,
       },
       {
         path: "registration",
