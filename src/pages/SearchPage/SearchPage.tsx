@@ -196,7 +196,7 @@ const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", 
                                             "Не указаны"}
                                         </p>
                                     </div>
-                                    <Link to={`/profile/${student._id}`} className={styles.profileButton}>Подробнее</Link>
+                                    <Link to={`/student/${student._id}`} className={styles.profileButton}>Подробнее</Link>
                                 </div>
                             ))}
                         </>

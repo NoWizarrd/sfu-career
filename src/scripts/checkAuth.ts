@@ -13,7 +13,7 @@ function isTokenExpired(token:string) {
 }
 
 function checkAuth() { 
-    console.log('log')
+    //console.log('log')
     const token = localStorage.getItem('token');
     if (token) {
         if (isTokenExpired(token)) {

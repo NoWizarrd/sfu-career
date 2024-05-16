@@ -5,19 +5,18 @@ import { jwtDecode } from 'jwt-decode';
 
 interface JWT {
     _id: string,
-    exp: number,
-    iat: number  
+    user: 'student' | 'company',
 }
 
 export default function Header() {
     const isAuth = true; // Это значение должно быть динамическим на основе токена
-    const isStudent = true; // Это значение должно определяться на основе роли пользователя
+    const isStudent = false; // Это значение должно определяться на основе роли пользователя
 
     const token = localStorage.getItem('token');
-    let myId: string | undefined
+    let myProfile: JWT | undefined
     if(token){
-        const { _id } = jwtDecode<JWT>(token)
-        myId = _id
+        const { _id, user} = jwtDecode<JWT>(token)
+        myProfile = {_id, user}
     }
     return (
         <header className={isAuth ? styles.headerAuth : styles.header}>
@@ -38,12 +37,12 @@ export default function Header() {
                             <Link to={"/search"} className={styles.button1}>
                                 Вакансии
                             </Link>
-                            <Link to={`/profile/${myId}`} className={styles.button2}>Профиль</Link>
+                            <Link to={myProfile ? `/${myProfile?.user}/${myProfile?._id}` : "/"} className={styles.button2}>Профиль</Link>
                         </>
                     ) : (
                         <>
                             <Link to={"/search"} className={styles.button1}>Студенты</Link>
-                            <Link to={`/profile/${myId}`} className={styles.button2}>Профиль</Link>
+                            <Link to={myProfile ? `/${myProfile?.user}/${myProfile?._id}` : "/"} className={styles.button2}>Профиль</Link>
                         </>
                     )}
                 </>

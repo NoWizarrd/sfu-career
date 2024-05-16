@@ -2,23 +2,32 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom"; 
 import styles from "./ProfilePage.module.scss";
-import noAvatar from "../../assets/noAvatar.jpg"
+import noAvatar from "../../assets/noAvatar.jpg";
+import {jwtDecode} from 'jwt-decode';
+
 
 interface StudentData {
-  _id: string;
-  surname: string;
-  name: string;
-  patronymic: string;
-  institute: string;
-  specialty: string;
-  course: number;
-  practices: string;
-  avatarUrl: string;
-  personalSkills: string[];
-  about: string;
-}
+    _id: string;
+    surname: string;
+    name: string;
+    patronymic: string;
+    institute: string;
+    specialty: string;
+    course: number;
+    practices: string;
+    avatarUrl: string;
+    personalSkills: string[];
+    about: string;
+  }
 
-const getStudent = async (id: string): Promise<StudentData> => {
+  interface JWT {
+    _id: string,
+    user: 'student' | 'company',
+    exp: number,
+    iat: number  
+  }
+
+  const getStudent = async (id: string): Promise<StudentData> => {
     const token = localStorage.getItem('token')
     const response = await fetch(`http://localhost:4444/students/${id}`, {
       headers: {
@@ -34,7 +43,6 @@ const getStudent = async (id: string): Promise<StudentData> => {
     return data;
 }
 
-
 const StudentProfile: React.FC = () => {
   const { profileId } = useParams();
   const navigate = useNavigate();
@@ -43,6 +51,13 @@ const StudentProfile: React.FC = () => {
     isError,
     isLoading,
   } = useQuery<StudentData>(["student", profileId], () => getStudent(profileId!));
+
+  const token = localStorage.getItem('token');
+  let myId: string | undefined
+  if(token){
+      const { _id } = jwtDecode<JWT>(token)
+      myId = _id
+  }
 
   function exitFromProfile() {
     window.localStorage.removeItem('token')
@@ -89,8 +104,16 @@ const StudentProfile: React.FC = () => {
             <h2>О себе</h2>
             <p>{studentData.about}</p>
             </div>
-            <button className={styles.editButton}>Изменить данные</button>
-            <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
+            {
+              profileId === myId 
+              ?
+              <>
+                <button className={styles.editButton}>Изменить данные</button>
+                <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
+              </>
+              :
+              <button className={styles.messageButton}>Отправить сообщение</button>
+            }
         </div>
         </div>
     </div>

@@ -11,17 +11,29 @@ export default function AuthorizationForm() {
     const handleLoginSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:4444/students/login", { email, password });
+            const response = await axios.post("http://localhost:4444/students/login", { email, password })
             if (response.status === 200) {
                 console.log("Успешный вход");
                 window.localStorage.setItem('token', response.data.token)
-                navigate(`/profile/${response.data._id}`)
+                navigate(`/student/${response.data._id}`)
                 location.reload()
             } else {
                 console.log("Ошибка входа");
             }
         } catch (error) {
-            console.error("Ошибка при отправке данных на сервер:", error);
+            try{
+                const responseCompany = await axios.post("http://localhost:4444/companies/login", { email, password })
+            if (responseCompany.status === 200) {
+                console.log("Успешный вход");
+                window.localStorage.setItem('token', responseCompany.data.token)
+                navigate(`/company/${responseCompany.data._id}`)
+                location.reload()
+            } else {
+                console.log("Ошибка входа");
+            }
+            } catch{
+                console.error("Ошибка при отправке данных на сервер:", error);
+            }
         }
     };
     return (

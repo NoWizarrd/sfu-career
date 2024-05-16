@@ -3,11 +3,12 @@ import Layout from "./components/layout/Layout"
 import MainPage from "./pages/MainPage/MainPage"
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage"
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"
-import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import SearchPage from "./pages/SearchPage/SearchPage"
 import LoginPage from "./pages/LoginPage/LoginPage"
 import { QueryClient, QueryClientProvider } from "react-query"
 import checkAuth from "./scripts/checkAuth"
+import StudentProfile from "./pages/ProfilePage/StudentProfile"
+import CompanyProfile from "./pages/ProfilePage/CompanyProfile"
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,12 @@ const router = createBrowserRouter([
         element: <NotFoundPage />,
       },
       {
-        path: "profile/:profileId",
-        element: <ProfilePage />,
+        path: "student/:profileId",
+        element: <StudentProfile />,
+      },
+      {
+        path: "company/:profileId",
+        element: <CompanyProfile />,
       },
       {
         path: "search",

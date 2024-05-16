@@ -16,6 +16,10 @@
   margin-top: 20px; 
 }
 
+.companyProfile {
+  @extend .studentProfile;
+}
+
 .profileHeader {
   display: flex;
   align-items: center;
@@ -72,6 +76,7 @@
 
 .editButton {
   padding: 10px 20px;
+  font-size: 14px;
   background-color: rgb(245, 168, 26);
   color: #fff;
   border: none;
@@ -84,17 +89,19 @@
   }
 }
 
-.exitButton {
-  padding: 10px 20px;
-  background-color: rgb(223, 67, 62);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+.messageButton {
+  @extend .editButton;
+  background-color: rgb(245, 168, 26);
   &:hover{
-    background-color: rgb(248, 32, 32);
+    background-color: rgb(231, 151, 3);
+  }
+}
+
+.exitButton {
+  @extend .editButton;
+  background-color: rgb(223, 67, 62);
+  &:hover{
+    background-color: rgb(201, 26, 26);
   }
 }
 
