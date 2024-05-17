@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import Loader from "../../components/loader/Loader";
 
 interface CompanyData {
@@ -37,6 +37,33 @@ interface Skill {
     skill: string;
     __v: number;
 }
+
+const customStyles: StylesConfig<SkillsData,true> = {
+    control: (provided, state) => ({
+        ...provided,
+        borderColor: state.isFocused ? '#a8a8a8' : '#cfcfcf', 
+        '&:hover': {
+            borderColor: '#a8a8a8',
+        },
+        boxShadow: state.isFocused ? '0 0 0 1px #a8a8a8' : undefined, 
+    }),
+    multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: '#e0e0e0',
+    }),
+    multiValueLabel: (provided) => ({
+        ...provided,
+        color: '#000',
+    }),
+    multiValueRemove: (provided) => ({
+        ...provided,
+        color: '#000',
+        ':hover': {
+            backgroundColor: '#d3d3d3',
+            color: '#000',
+        },
+    }),
+};
 
 async function fetchVacancies() {
     const token = localStorage.getItem("token");
@@ -101,8 +128,9 @@ const SearchVacanciesPage: React.FC = () => {
         }));
     };
 
-    const handleSkillChange = (selectedOptions: SkillsData[]) => {
-        setSelectedSkills(selectedOptions);
+    const handleSkillChange = (selectedOptions: readonly SkillsData[]) => {
+        const mutableSelectedOptions = [...selectedOptions];
+        setSelectedSkills(mutableSelectedOptions);
         setSearchFilters(prevFilters => ({
             ...prevFilters,
             skills: selectedOptions.map(option => option.value),
@@ -132,6 +160,7 @@ const SearchVacanciesPage: React.FC = () => {
                                 id='skill'
                                 isMulti
                                 options={skills}
+                                styles={customStyles}
                                 className={styles.skillSelect}
                                 onChange={handleSkillChange}
                                 value={selectedSkills}

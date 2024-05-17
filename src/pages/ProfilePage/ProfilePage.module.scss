@@ -26,10 +26,10 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 20px;
-  background-color: #c2c2c2;
+  background-color: #f0f0f0;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3)
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2)
 }
 
 .profilePhoto {
@@ -54,10 +54,10 @@
 .profileDetails {
   width: 100%;
   padding: 20px;
-  background-color: #c2c2c2;
+  background-color: #f0f0f0;
   color: #333;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   h2 {
     margin-bottom: 10px;
@@ -71,6 +71,7 @@
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
+  border: 1px solid #ddd;
 }
 
 .editButton {

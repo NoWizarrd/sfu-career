@@ -17,18 +17,19 @@
     border-radius: 10px;
 }
 
-.header{
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.header {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
+
 .filters {
-    background-color: #c2c2c2;
+    background-color: #f0f0f0;
     color: #fff;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     .filterOptions {
         display: flex;
         flex-wrap: wrap;
@@ -46,7 +47,13 @@
                 padding: 8px;
                 font-size: 16px;
                 border-radius: 5px;
-                border: 1px solid #808080;
+                border: 1px solid #cfcfcf;
+                &:focus{
+                    outline: 1px solid #a8a8a8;  
+                }
+                &:hover{
+                    border: 1px solid #a8a8a8,
+                }
             }
             input {
                 @extend select;
@@ -55,8 +62,9 @@
             .skillSelect {
                 color: #000;
                 min-width: 250px;
-                border-radius: 5px;
-                border: 1px solid #808080;
+                &:focus{
+                    border: 1px solid #a8a8a8;  
+                }
             }
         }
     }
@@ -66,10 +74,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, calc(50% - 15px)));
     grid-gap: 30px;
-    background-color: #c2c2c2;
+    background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -78,7 +86,7 @@
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Распределение контента по высоте */
@@ -110,7 +118,7 @@
         margin-top: auto;
         text-align: center;
         font-size: 16px;
-        background: rgb(245, 168, 26);
+        background: linear-gradient(135deg, #f5a51b, #ffcd33); // Градиент для кнопки
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -118,7 +126,7 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-            background-color: rgb(231, 151, 3);
+            background: linear-gradient(135deg, #f2a026, #e8b200); // Более темный градиент при наведении
         }
     }
 }
