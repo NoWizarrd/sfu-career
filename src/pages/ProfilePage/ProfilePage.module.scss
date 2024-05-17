@@ -2,7 +2,7 @@
   background-color: #ffffff;
   color: #333;
   padding: 20px;
-  height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
 }
 
 .studentProfile {
@@ -11,9 +11,9 @@
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
+  width: 60%; // Уменьшение ширины блоков
   margin: 0 auto;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .companyProfile {
@@ -29,7 +29,7 @@
   background-color: #f0f0f0;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2)
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .profilePhoto {
@@ -59,6 +59,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+
   h2 {
     margin-bottom: 10px;
     font-size: 24px;
@@ -84,7 +85,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 20px;
-  &:hover{
+
+  &:hover {
     background: linear-gradient(135deg, #ffa500, #ffd700);
   }
 }
@@ -97,7 +99,8 @@
   @extend .editButton;
   background: none;
   background-color: rgb(223, 67, 62);
-  &:hover{
+
+  &:hover {
     background: none;
     background-color: rgb(201, 26, 26);
   }
@@ -112,7 +115,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 10px;
-  &:hover{
+
+  &:hover {
     background-color: #c0c1ca;
   }
 }
