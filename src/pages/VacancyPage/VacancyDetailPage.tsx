@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import styles from "./VacancyDetailPage.module.scss";
 import Loader from "../../components/loader/Loader";
+import ModalNotAuth from "../../components/modals/ModalNotAuth";
 
 interface VacancyData {
     _id: string;
@@ -44,7 +45,11 @@ const fetchVacancy = async (id: string) => {
 const VacancyDetailPage: React.FC = () => {
     const { vacancyId } = useParams<{ vacancyId: string }>();
     const { data: vacancy, isLoading, error } = useQuery<VacancyData>(["vacancy", vacancyId], () => fetchVacancy(vacancyId!));
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const token = localStorage.getItem('token')
+    function handleUnauthorizedAction() {
+        setIsModalOpen(true);
+    }
     
     if (isLoading) return <Loader/>
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
@@ -60,8 +65,16 @@ const VacancyDetailPage: React.FC = () => {
                             <p><strong>Статус: </strong>{vacancy.isOpen ? "Открыта" : "Закрыта"}</p>
                         </div>
                         <div className={styles.buttonGroup}>
-                            <button className={styles.applyButton}>Подать заявку</button>
-                            <button className={styles.messageButton}>Написать сообщение</button>
+                            <button className={styles.applyButton}
+                                    onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                            >
+                                Подать заявку
+                            </button>
+                            <button className={styles.messageButton} 
+                                    onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                            >
+                                Написать сообщение
+                            </button>
                         </div>
                     </div>
                         <Link to={`/company/${vacancy.company._id}`}>
@@ -79,6 +92,11 @@ const VacancyDetailPage: React.FC = () => {
                 </div>
             ) : (
                 <div className={styles.pageContainer}>Вакансия не найдена</div>
+            )}
+                {isModalOpen && (
+                <ModalNotAuth onClose={() => setIsModalOpen(false)}>
+                    <p>Для выполнения этого действия необходимо авторизоваться</p>
+                </ModalNotAuth>
             )}
         </div>
     );

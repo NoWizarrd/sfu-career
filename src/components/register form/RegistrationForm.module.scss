@@ -44,11 +44,11 @@
     height: 60px;
     border-radius: 15px;
     transition: ease-in 0.2s;
-    background: radial-gradient(circle,rgba(249, 178, 26, 1),rgba(255, 157, 10, 1));
+    background: linear-gradient(135deg, #f5a51b, #face4a);
     width: 435px;
     height: 45px;
     &:hover{
-        color:#FFFFFF;
+        background: linear-gradient(135deg, #ffa500, #ffd700);
     }
 }
 

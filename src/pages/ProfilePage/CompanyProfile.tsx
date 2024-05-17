@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom"; 
 import styles from "./ProfilePage.module.scss";
 import noAvatar from "../../assets/noAvatar.jpg";
 import {jwtDecode} from 'jwt-decode';
 import Loader from "../../components/loader/Loader";
+import ModalNotAuth from "../../components/modals/ModalNotAuth";
 
 interface CompanyData {
     _id: string;
@@ -42,6 +43,7 @@ interface JWT {
 const CompanyProfile: React.FC = () => {
   const { profileId } = useParams();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: companyData,
     isError,
@@ -60,7 +62,9 @@ const CompanyProfile: React.FC = () => {
     navigate('/login');
     location.reload()
 }
-
+function handleUnauthorizedAction() {
+  setIsModalOpen(true);
+}
   if (isLoading) return(<Loader/>)
   if (isError || !companyData) return(
     <div className={styles.pageContainer}>
@@ -99,10 +103,19 @@ const CompanyProfile: React.FC = () => {
                 <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
               </>
               :
-              <button className={styles.messageButton}>Отправить сообщение</button>
+              <button className={styles.messageButton} 
+              onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+              >
+                Отправить сообщение
+              </button>
             }
         </div>
         </div>
+        {isModalOpen && (
+                <ModalNotAuth onClose={() => setIsModalOpen(false)}>
+                    <p>Для выполнения этого действия необходимо авторизоваться</p>
+                </ModalNotAuth>
+            )}
     </div>
   );
 };

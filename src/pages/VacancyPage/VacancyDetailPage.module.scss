@@ -49,23 +49,25 @@
   .applyButton {
     padding: 10px 20px;
     font-size: 14px;
-    background-color: rgb(245, 168, 26);
+    background: linear-gradient(135deg, #f5a51b, #face4a);
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.2s ease;
         &:hover {
-        background-color: #F56C13;
+          background: linear-gradient(135deg, #ffa500, #ffd700);
     }
   }
   
   .messageButton {
     @extend .applyButton;
+    background: none;
     background-color: #fff;
     color: rgb(245, 168, 26);
     border: 2px solid rgb(245, 168, 26);
         &:hover {
+        background: none;
         background-color: rgb(245, 168, 26);
         color: #fff;
     }
