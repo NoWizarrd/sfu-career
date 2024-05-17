@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import Layout from "./components/layout/Layout"
 import MainPage from "./pages/MainPage/MainPage"
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage"
@@ -29,10 +29,6 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "notfound",
-        element: <NotFoundPage />,
-      },
-      {
         path: "student/:profileId",
         element: <StudentProfile />,
       },
@@ -51,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "search/vacancy",
         element: <SearchVacanciesPage />,
+      },
+      {
+        path: "notfound",
+        element: <NotFoundPage />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/notfound" />,
       },
     ],
   },
