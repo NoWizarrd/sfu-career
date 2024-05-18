@@ -76,11 +76,11 @@ const PracticeList: React.FC<{ studentId: string }> = ({ studentId }) => {
                                     <p><strong>Название практики: </strong>{practice.practiceName}</p>
                                     <p><strong>Оценка: </strong>{practice.rating}</p>
                                     {
-                                        practice.course == 4 || practice.companyName== 'Кафедра' ?
+                                        practice.course == 4 ?
                                         <>
                                             <p><strong>Компания: </strong>Практика пройдена на кафедре</p>
                                         </>
-                                        : 
+                                        :
                                         <>
                                             <p><strong>Компания: </strong>{practice.company ? practice.company.name : practice.companyName}</p>
                                             <p><strong>Отзыв компании: </strong>{practice.companyReview}</p>

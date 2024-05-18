@@ -110,7 +110,7 @@ const StudentProfile: React.FC = () => {
                         <h2>О себе</h2>
                         <p>{studentData.about}</p>
                     </div>
-                    <div className={styles.profileDetailsSection}>
+                    <div>
                         <h2>Пройденные практики</h2>
                         <PracticeList studentId={studentData._id} />
                     </div>

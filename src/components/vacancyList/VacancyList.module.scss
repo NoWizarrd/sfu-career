@@ -1,0 +1,43 @@
+.vacancyList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Две вакансии в строке */
+    gap: 10px;
+    width: 100%;
+}
+
+.vacancyItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    span {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+
+    button {
+        padding: 5px 10px;
+        font-size: 14px;
+        background: linear-gradient(135deg, #f5a51b, #face4a);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background: linear-gradient(135deg, #ffa500, #ffd700);
+        }
+    }
+}
+
+.noVacancies {
+  font-size: 18px;
+  color: #999;
+  margin-top: 20px;
+}
