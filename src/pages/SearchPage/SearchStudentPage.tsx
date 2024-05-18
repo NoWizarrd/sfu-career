@@ -20,6 +20,7 @@ interface Student {
 interface SearchFilters {
     personalSkills: string[];
     course: string;
+    specialty: string,
     institute: string;
 }
 
@@ -101,6 +102,7 @@ const SearchStudentPage: React.FC = () => {
     const [searchFilters, setSearchFilters] = useState<SearchFilters>({
         personalSkills: [],
         course: "",
+        specialty: "",
         institute: "",
     });
     useEffect(() => {
@@ -138,6 +140,8 @@ const SearchStudentPage: React.FC = () => {
           )) &&
         (searchFilters.course === "" ||
           student.course.toString() === searchFilters.course) &&
+          (searchFilters.specialty === "" ||
+            student.specialty.toLowerCase().includes(searchFilters.specialty.toLowerCase())) &&
         (searchFilters.institute === "" ||
           student.institute.toLowerCase().includes(searchFilters.institute.toLowerCase()))
       );
@@ -150,20 +154,6 @@ const SearchStudentPage: React.FC = () => {
             <div className={styles.header}>Поиск студентов</div>
                 <div className={styles.filters}>
                     <div className={styles.filterOptions}>
-                        <div className={styles.filterOption}>
-                            <label htmlFor="skill">Навык:</label>
-                            <Select
-                                id='skill'
-                                isMulti
-                                options={skills}
-                                styles={customStyles}
-                                className={styles.skillSelect}
-                                onChange={handleSkillChange}
-                                value={selectedSkills}
-                                placeholder="Выберите навыки..."
-                                
-                            />
-                        </div>
                         <div className={styles.filterOption}>
                             <label htmlFor="course">Курс:</label>
                             <select
@@ -180,6 +170,16 @@ const SearchStudentPage: React.FC = () => {
                             </select>
                         </div>
                         <div className={styles.filterOption}>
+                            <label htmlFor="specialty">Специальность:</label>
+                            <input
+                                type="text"
+                                id="specialty"
+                                value={searchFilters.specialty}
+                                onChange={handleFilterChange}
+                                placeholder="Введите наименование специальности"
+                            />
+                        </div>
+                        <div className={styles.filterOption}>
                             <label htmlFor="institute">Институт:</label>
                             <input
                                 type="text"
@@ -187,6 +187,19 @@ const SearchStudentPage: React.FC = () => {
                                 value={searchFilters.institute}
                                 onChange={handleFilterChange}
                                 placeholder="Введите название института"
+                            />
+                        </div>
+                        <div className={styles.filterOption}>
+                            <label htmlFor="skill">Навыки:</label>
+                            <Select
+                                id='skill'
+                                isMulti
+                                options={skills}
+                                styles={customStyles}
+                                className={styles.skillSelect}
+                                onChange={handleSkillChange}
+                                value={selectedSkills}
+                                placeholder="Выберите навыки..."
                             />
                         </div>
                     </div>

@@ -42,17 +42,17 @@
             }
 
             select {
-                color: #808080 ;
+                color: #808080;
                 width: 100%;
                 padding: 8px;
                 font-size: 16px;
                 border-radius: 5px;
                 border: 1px solid #cfcfcf;
-                &:focus{
+                &:focus {
                     outline: 1px solid #a8a8a8;  
                 }
-                &:hover{
-                    border: 1px solid #a8a8a8,
+                &:hover {
+                    border: 1px solid #a8a8a8;
                 }
             }
             input {
@@ -62,9 +62,25 @@
             .skillSelect {
                 color: #000;
                 min-width: 250px;
-                &:focus{
+                &:focus {
                     border: 1px solid #a8a8a8;  
                 }
+            }
+        }
+
+        .salarySwitch {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            label {
+                font-weight: bold;
+                color: #242424;
+                margin-bottom: 8px;
+            }
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                margin-bottom: 5px;
             }
         }
     }
@@ -79,7 +95,6 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-
 
 .resultItem {
     position: relative;
@@ -129,9 +144,8 @@
             background: linear-gradient(135deg, #ffa500, #ffd700);
         }
     }
-    
 }
 
-.noResult{
+.noResult {
    font-size: 1.1rem;
 }

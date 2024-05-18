@@ -62,7 +62,10 @@ export default function Header() {
                         </div>
                     ) : (
                         <div className={`${styles.navSection} ${styles.right2}`}>
-                            <Link to={myProfile ? `/${myProfile.user}/${myProfile._id}` : "/"} className={`${styles.navButton} ${isProfileActive ? styles.active : ''} ${isProfileActive ? styles.myProfile : ''} ${isOtherStudentProfile ? styles.studentProfile : ''} ${isOtherCompanyProfile ? styles.companyProfile : ''}`}>
+                            <Link to={myProfile ? `/${myProfile.user}/${myProfile._id}` : "/"} 
+                            className={`${styles.navButton} ${isProfileActive ? styles.active : ''} 
+                            ${isProfileActive ? styles.myProfile : ''} ${isOtherStudentProfile ? styles.studentProfile : ''} 
+                            ${isOtherCompanyProfile ? styles.companyProfile : ''}`}>
                                 Профиль
                             </Link>
                         </div>

@@ -29,21 +29,24 @@ interface Vacancy {
 interface SearchFilters {
     skills: string[];
     title: string;
+    salarySpecified: boolean;
+    company: string;
 }
+
 interface Skill {
     _id: string;
     skill: string;
     __v: number;
 }
 
-const customStyles: StylesConfig<SkillsData,true> = {
+const customStyles: StylesConfig<SkillsData, true> = {
     control: (provided, state) => ({
         ...provided,
-        borderColor: state.isFocused ? '#a8a8a8' : '#cfcfcf', 
+        borderColor: state.isFocused ? '#a8a8a8' : '#cfcfcf',
         '&:hover': {
             borderColor: '#a8a8a8',
         },
-        boxShadow: state.isFocused ? '0 0 0 1px #a8a8a8' : undefined, 
+        boxShadow: state.isFocused ? '0 0 0 1px #a8a8a8' : undefined,
     }),
     multiValue: (provided) => ({
         ...provided,
@@ -75,11 +78,10 @@ async function fetchVacancies() {
     if (!response.ok) {
         throw new Error("Network response was not ok");
     }
-    
+
     const data = await response.json();
     return data;
 }
-
 
 const fetchSkills = async (): Promise<SkillsData[]> => {
     const token = localStorage.getItem('token');
@@ -90,7 +92,7 @@ const fetchSkills = async (): Promise<SkillsData[]> => {
             },
         });
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was неустрано');
         }
         const data: Skill[] = await response.json();
         return data.map(skill => ({ value: skill._id, label: skill.skill }));
@@ -105,7 +107,9 @@ const SearchVacanciesPage: React.FC = () => {
     const [selectedSkills, setSelectedSkills] = useState<SkillsData[]>([]);
     const [searchFilters, setSearchFilters] = useState<SearchFilters>({
         skills: [],
-        title: ""
+        title: "",
+        company: "",
+        salarySpecified: false,
     });
 
     useEffect(() => {
@@ -118,10 +122,10 @@ const SearchVacanciesPage: React.FC = () => {
     const { data: searchResults, isLoading, error } = useQuery<Vacancy[]>("vacancies", fetchVacancies, { keepPreviousData: true });
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { id, value } = event.target;
+        const { id, value, type, checked } = event.target as HTMLInputElement;
         setSearchFilters((prevFilters) => ({
             ...prevFilters,
-            [id]: value,
+            [id]: type === "checkbox" ? checked : value,
         }));
     };
 
@@ -141,9 +145,13 @@ const SearchVacanciesPage: React.FC = () => {
             )) &&
         (searchFilters.title === "" ||
             vacancy.title.toLowerCase().includes(searchFilters.title.toLowerCase()))
+            &&
+        (searchFilters.company === "" ||
+            vacancy.company.name.toLowerCase().includes(searchFilters.company.toLowerCase())) &&
+        (!searchFilters.salarySpecified || (searchFilters.salarySpecified && vacancy.salary))
     );
-    
-    if (isLoading) return(<Loader/>)
+
+    if (isLoading) return (<Loader />)
 
     return (
         <div className={styles.root}>
@@ -152,7 +160,36 @@ const SearchVacanciesPage: React.FC = () => {
                 <div className={styles.filters}>
                     <div className={styles.filterOptions}>
                         <div className={styles.filterOption}>
-                            <label htmlFor="skill">Навык:</label>
+                            <label htmlFor="title">Название вакансии:</label>
+                            <input
+                                type="text"
+                                id="title"
+                                value={searchFilters.title}
+                                onChange={handleFilterChange}
+                                placeholder="Введите название вакансии"
+                            />
+                        </div>
+                        <div className={styles.filterOption}>
+                            <label htmlFor="company">Компания:</label>
+                            <input
+                                type="text"
+                                id="company"
+                                value={searchFilters.company}
+                                onChange={handleFilterChange}
+                                placeholder="Введите название компании"
+                            />
+                        </div>
+                        <div className={styles.salarySwitch}>
+                            <label htmlFor="salarySpecified">Зарплата:</label>
+                            <input
+                                type="checkbox"
+                                id="salarySpecified"
+                                checked={searchFilters.salarySpecified}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
+                        <div className={styles.filterOption}>
+                            <label htmlFor="skill">Навыки:</label>
                             <Select
                                 id='skill'
                                 isMulti
@@ -162,16 +199,6 @@ const SearchVacanciesPage: React.FC = () => {
                                 onChange={handleSkillChange}
                                 value={selectedSkills}
                                 placeholder="Выберите навыки..."
-                            />
-                        </div>
-                        <div className={styles.filterOption}>
-                            <label htmlFor="title">Название вакансии:</label>
-                            <input
-                                type="text"
-                                id="title"
-                                value={searchFilters.title}
-                                onChange={handleFilterChange}
-                                placeholder="Введите название вакансии"
                             />
                         </div>
                     </div>
@@ -194,9 +221,9 @@ const SearchVacanciesPage: React.FC = () => {
                                             <strong>Необходимые навыки: </strong>
                                             {vacancy.requiredSkills.map(skill => skill).join(", ")}
                                         </p>
-                                        {vacancy.salary 
-                                        ? <p><strong>Зарплата: </strong>{vacancy.salary} руб.</p> 
-                                        :<p><strong>Зарплата: </strong>Не указана</p>}
+                                        {vacancy.salary
+                                            ? <p><strong>Зарплата: </strong>{vacancy.salary} руб.</p>
+                                            : <p><strong>Зарплата: </strong>Не указана</p>}
                                     </div>
                                     <Link to={`/vacancy/${vacancy._id}`} className={styles.profileButton}>Подробнее</Link>
                                 </div>
