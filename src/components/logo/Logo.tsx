@@ -26,8 +26,8 @@ export default function Logo({ onLogoClick }: LogoProps){
 
     return (
         <div onClick={handleClick} className={styles.logo}>
-            <img src={logo} alt="logo" />
-            <div>SFU-Карьера</div>
+            <img src={logo} alt="logo" className={styles.logoImage} />
+            <div className={styles.logoText}>SFU-Карьера</div>
         </div>
     );
 }

@@ -5,45 +5,94 @@
   top: 0;
   z-index: 10;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
   color: #000000;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); 
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   height: 80px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .headerAuth {
   @extend .header;
-  justify-content: start;
 }
 
-.buttonStudent{
-  transition: background-color 0.2s ease-in-out;
-  height: 78px;
-  padding: 5px;
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 50px; /* Увеличим размер логотипа */
+  margin-right: 10px;
+}
+
+.logoText {
+  font-size: 1.5rem; /* Увеличим размер текста рядом с логотипом */
+  font-weight: bold;
+}
+
+.navWrapper {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navMenu {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left: 210px;
+}
+
+.navButton {
+  transition: border-bottom 0.2s ease-in-out;
+  padding: 10px 15px;
   background-color: #fff;
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 25vw;
   font-size: 1.3rem;
-  &:hover{
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 3px solid transparent;
+  &:hover {
     cursor: pointer;
-    background-color: #F9B21A;
+    border-bottom: 3px solid #F9B21A; /* Подсветка при наведении */
   }
 }
 
-.buttonVacancy{
-  @extend .buttonStudent;
-  left: 35vw;
+.navButton.active {
+  border-bottom: 3px solid #F9B21A;
+  font-weight: bold;
 }
 
-.button2{
-  @extend .buttonStudent;
-  left: 80vw;
+.navSection {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-.button1Auth{
-  @extend .buttonStudent;
-  left: 70vw;
+.navSection.right {
+  justify-content: flex-end;
+  margin: 100px;
+}
+
+.navSection.right2 {
+  justify-content: flex-end;
+  margin: 175px;
+}
+
+.navButton.studentProfile {
+  border-bottom: 3px solid #1E90FF; /* Синяя линия для профилей студентов */
+}
+
+.navButton.companyProfile {
+  border-bottom: 3px solid #FF5733; /* Красная линия для профилей компаний */
+}
+
+.navButton.myProfile {
+  border-bottom: 3px solid #F9B21A; /* Оранжевая линия для собственного профиля */
 }

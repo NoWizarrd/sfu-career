@@ -14,3 +14,7 @@ a, a:link, a:visited  {
     text-decoration: none;
 	color: #000000;
 }
+html {
+    width: 100%;
+    width: 100vw;
+}
