@@ -29,6 +29,13 @@ const fetchPractices = async (studentId: string) => {
     return data;
 };
 
+const courseNames: { [key: number]: string } = {
+    1: 'Учебно-технологическая',
+    2: 'Научно-исследовательская',
+    3: 'Производственная',
+    4: 'Преддипломная'
+};
+
 const PracticeList: React.FC<{ studentId: string }> = ({ studentId }) => {
     const { data: practices, isLoading, error } = useQuery<PracticeData[]>(["practices", studentId], () => fetchPractices(studentId));
     const [expandedPractices, setExpandedPractices] = useState<Set<string>>(new Set());
@@ -46,7 +53,7 @@ const PracticeList: React.FC<{ studentId: string }> = ({ studentId }) => {
     };
 
     const token = localStorage.getItem("token");
-    if(!token) return <div className={styles.noPractices}>Практики видны только авторизированным пользователям</div>
+    if (!token) return <div className={styles.noPractices}>Практики видны только авторизированным пользователям</div>;
     if (isLoading) return <div className={styles.pageContainer}>Загрузка практик...</div>;
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
 
@@ -59,15 +66,26 @@ const PracticeList: React.FC<{ studentId: string }> = ({ studentId }) => {
                     sortedPractices.map(practice => (
                         <div key={practice._id} className={`${styles.practiceCard} ${expandedPractices.has(practice._id) ? styles.open : ''}`}>
                             <div className={styles.practiceHeader} onClick={() => togglePractice(practice._id)}>
-                                <h3>{practice.course} курс ({practice.practiceName})</h3>
+                                <h3>{practice.course} курс ({courseNames[practice.course]})</h3>
                                 <button className={styles.toggleButton}>
                                     {expandedPractices.has(practice._id) ? "▲" : "▼"}
                                 </button>
                             </div>
                             {expandedPractices.has(practice._id) && (
                                 <div className={styles.practiceDetails}>
-                                    <p>Практика пройдена на {practice.rating} в компании {practice.company ? practice.company.name : practice.companyName}</p>
-                                    <p>Отзыв компании о студенте: {practice.companyReview}</p>
+                                    <p><strong>Название практики: </strong>{practice.practiceName}</p>
+                                    <p><strong>Оценка: </strong>{practice.rating}</p>
+                                    {
+                                        practice.course == 4 || practice.companyName== 'Кафедра' ?
+                                        <>
+                                            <p><strong>Компания: </strong>Практика пройдена на кафедре</p>
+                                        </>
+                                        : 
+                                        <>
+                                            <p><strong>Компания: </strong>{practice.company ? practice.company.name : practice.companyName}</p>
+                                            <p><strong>Отзыв компании: </strong>{practice.companyReview}</p>
+                                        </>
+                                    } 
                                 </div>
                             )}
                         </div>

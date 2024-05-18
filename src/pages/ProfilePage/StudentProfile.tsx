@@ -104,7 +104,7 @@ const StudentProfile: React.FC = () => {
                 <div className={styles.profileDetails}>
                     <div className={styles.profileDetailsSection}>
                         <h2>Профессиональные навыки</h2>
-                        <p>{studentData.personalSkills.join(", ")}</p>
+                        <p>{studentData.personalSkills.length > 0 ? studentData.personalSkills.join(", ") : "Не указаны"}</p>
                     </div>
                     <div className={styles.profileDetailsSection}>
                         <h2>О себе</h2>

@@ -21,7 +21,6 @@ interface Vacancy {
     company: CompanyData;
     description: string;
     requiredSkills: string[];
-    location: string;
     salary?: number;
     benefits: string[];
     isOpen: boolean;
@@ -29,7 +28,6 @@ interface Vacancy {
 
 interface SearchFilters {
     skills: string[];
-    location: string;
     title: string;
 }
 interface Skill {
@@ -107,8 +105,7 @@ const SearchVacanciesPage: React.FC = () => {
     const [selectedSkills, setSelectedSkills] = useState<SkillsData[]>([]);
     const [searchFilters, setSearchFilters] = useState<SearchFilters>({
         skills: [],
-        location: "",
-        title: "",
+        title: ""
     });
 
     useEffect(() => {

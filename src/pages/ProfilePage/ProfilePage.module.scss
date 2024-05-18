@@ -85,7 +85,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 20px;
-
+  margin-right: 10px;
   &:hover {
     background: linear-gradient(135deg, #ffa500, #ffd700);
   }
@@ -103,20 +103,5 @@
   &:hover {
     background: none;
     background-color: rgb(201, 26, 26);
-  }
-}
-
-.practicesButton {
-  padding: 5px 5px;
-  background-color: #ffffff;
-  color: black;
-  border: #131313 solid 2px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-
-  &:hover {
-    background-color: #c0c1ca;
   }
 }

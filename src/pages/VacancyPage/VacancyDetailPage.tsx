@@ -11,7 +11,6 @@ interface VacancyData {
     company: CompanyData;
     description: string;
     requiredSkills: string[];
-    location: string;
     salary?: number;
     benefits: string[];
     isOpen: boolean;
@@ -85,7 +84,6 @@ const VacancyDetailPage: React.FC = () => {
                         </Link>
                     <div className={`${styles.vacancyDetails} ${styles.sectionSeparator}`}>
                         <p><strong>Навыки: </strong>{vacancy.requiredSkills.join(", ")}</p>
-                        <p><strong>Местоположение: </strong>{vacancy.location}</p>
                         <p><strong>Описание: </strong>{vacancy.description}</p>
                         {vacancy.benefits.length > 0 && <p><strong>Преимущества: </strong>{vacancy.benefits.join(", ")}</p>}
                     </div>
