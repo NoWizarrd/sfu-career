@@ -86,36 +86,42 @@ const CompanyProfile: React.FC = () => {
             className={styles.profilePhoto}
           />
           <div className={styles.profileInfo}>
-            <div className={styles.profileDetailsSection}>
+            <div className={styles.profileDetailsSectionFirst}>
               <p><strong>Название:</strong> {companyData.name}</p>
               <p><strong>Отрасль:</strong> {companyData.industry}</p>
               <p><strong>Местоположение:</strong> {companyData.location}</p>
               <p><strong>Сайт:</strong> <a href={companyData.website} target="_blank" rel="noopener noreferrer">{companyData.website}</a></p>
             </div>
           </div>
+              <div className={styles.profileButtons}>
+                {profileId === myId ? (
+                <>
+                  <button className={styles.editButton}>Изменить данные</button>
+                  <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
+                </>
+              ) : (
+                <button
+                  className={styles.messageButton}
+                  onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                >
+                  Отправить сообщение
+                </button>
+              )}
+            </div>
         </div>
         <div className={styles.profileDetails}>
           <div className={styles.profileDetailsSection}>
             <h2>Описание</h2>
             <p>{companyData.description}</p>
           </div>
-          {profileId === myId ? (
-            <>
-              <button className={styles.editButton}>Изменить данные</button>
-              <button className={styles.exitButton} onClick={exitFromProfile}>Выйти из аккаунта</button>
+          {profileId === myId ?
               <div>
                 <h2>Активные вакансии</h2>
                 <VacancyList companyId={companyData._id} />
               </div>
-            </>
-          ) : (
-            <button
-              className={styles.messageButton}
-              onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
-            >
-              Отправить сообщение
-            </button>
-          )}
+           : 
+           null
+           }
         </div>
       </div>
       {isModalOpen && (

@@ -85,7 +85,7 @@ const StudentProfile: React.FC = () => {
                         className={styles.profilePhoto}
                     />
                     <div className={styles.profileInfo}>
-                        <div className={styles.profileDetailsSection}>
+                        <div className={styles.profileDetailsSectionFirst}>
                             <p>
                                 <strong>ФИО:</strong> {studentData.surname} {studentData.name} {studentData.patronymic}
                             </p>
@@ -99,6 +99,23 @@ const StudentProfile: React.FC = () => {
                                 <strong>Курс:</strong> {studentData.course}
                             </p>
                         </div>
+                    </div>
+                    <div className={styles.profileButtons}>
+                        {profileId === myId ? (
+                            <>
+                                <button className={styles.editButton}>Изменить данные</button>
+                                <button className={styles.exitButton} onClick={exitFromProfile}>
+                                    Выйти из аккаунта
+                                </button>
+                            </>
+                        ) : (
+                            <button
+                                className={styles.messageButton}
+                                onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                            >
+                                Отправить сообщение
+                            </button>
+                        )}
                     </div>
                 </div>
                 <div className={styles.profileDetails}>
@@ -114,21 +131,7 @@ const StudentProfile: React.FC = () => {
                         <h2>Пройденные практики</h2>
                         <PracticeList studentId={studentData._id} />
                     </div>
-                    {profileId === myId ? (
-                        <>
-                            <button className={styles.editButton}>Изменить данные</button>
-                            <button className={styles.exitButton} onClick={exitFromProfile}>
-                                Выйти из аккаунта
-                            </button>
-                        </>
-                    ) : (
-                        <button
-                            className={styles.messageButton}
-                            onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
-                        >
-                            Отправить сообщение
-                        </button>
-                    )}
+
                 </div>
             </div>
             {isModalOpen && (

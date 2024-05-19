@@ -5,7 +5,8 @@
   min-height: calc(100vh - 160px);
 }
 
-.studentProfile {
+.studentProfile,
+.companyProfile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,10 +15,6 @@
   width: 60%;
   margin: 0 auto;
   margin-top: 20px;
-}
-
-.companyProfile {
-  @extend .studentProfile;
 }
 
 .profileHeader {
@@ -51,6 +48,13 @@
   }
 }
 
+.profileButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 20px;
+}
+
 .profileDetails {
   width: 100%;
   padding: 20px;
@@ -75,8 +79,14 @@
   border: 1px solid #ddd;
 }
 
+.profileDetailsSectionFirst{
+  @extend .profileDetailsSection;
+  margin-bottom: 0;
+}
+
 .editButton {
-  padding: 10px 20px;
+  width: 150px;
+  padding: 5px 20px;
   font-size: 14px;
   background: linear-gradient(135deg, #f5a51b, #face4a);
   color: #fff;
@@ -84,15 +94,9 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 20px;
-  margin-right: 10px;
   &:hover {
     background: linear-gradient(135deg, #ffa500, #ffd700);
   }
-}
-
-.messageButton {
-  @extend .editButton;
 }
 
 .exitButton {
@@ -104,4 +108,8 @@
     background: none;
     background-color: rgb(201, 26, 26);
   }
+}
+
+.messageButton {
+  @extend .editButton;
 }
