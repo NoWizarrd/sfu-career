@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import {jwtDecode} from "jwt-decode";
 import styles from "./VacancyDetailPage.module.scss";
 import Loader from "../../components/loader/Loader";
-import ModalNotAuth from "../../components/modals/ModalNotAuth";
+import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 
 interface VacancyData {
     _id: string;
@@ -121,9 +121,10 @@ const VacancyDetailPage: React.FC = () => {
                 <div className={styles.pageContainer}>Вакансия не найдена</div>
             )}
             {isModalOpen && (
-                <ModalNotAuth onClose={() => setIsModalOpen(false)}>
-                    <p>Для выполнения этого действия необходимо авторизоваться</p>
-                </ModalNotAuth>
+                <ModalMessage 
+                onClose={() => setIsModalOpen(false)}
+                message="Для выполнения этого действия необходимо авторизоваться">
+                </ModalMessage>
             )}
         </div>
     );

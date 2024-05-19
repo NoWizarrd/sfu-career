@@ -5,8 +5,8 @@ import styles from "./ProfilePage.module.scss";
 import noAvatar from "../../assets/noAvatar.jpg";
 import { jwtDecode } from "jwt-decode";
 import Loader from "../../components/loader/Loader";
-import ModalNotAuth from "../../components/modals/ModalNotAuth";
-import VacancyList from "../../components/vacancyList/VacancyList"; // импортируем компонент
+import VacancyList from "../../components/vacancyList/VacancyList";
+import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 
 interface CompanyData {
   _id: string;
@@ -80,11 +80,15 @@ const CompanyProfile: React.FC = () => {
     <div className={styles.pageContainer}>
       <div className={styles.companyProfile}>
         <div className={styles.profileHeader}>
-          <img
+        <div className={styles.profilePhotoContainer}>
+        <img
             src={companyData.avatarUrl ? companyData.avatarUrl : noAvatar}
             alt="avatar"
             className={styles.profilePhoto}
           />
+                    
+                </div>
+
           <div className={styles.profileInfo}>
             <div className={styles.profileDetailsSectionFirst}>
               <p><strong>Название:</strong> {companyData.name}</p>
@@ -125,9 +129,10 @@ const CompanyProfile: React.FC = () => {
         </div>
       </div>
       {isModalOpen && (
-        <ModalNotAuth onClose={() => setIsModalOpen(false)}>
-          <p>Для выполнения этого действия необходимо авторизоваться</p>
-        </ModalNotAuth>
+        <ModalMessage 
+          onClose={() => setIsModalOpen(false)}
+          message="Для выполнения этого действия необходимо авторизоваться">
+        </ModalMessage>
       )}
     </div>
   );
