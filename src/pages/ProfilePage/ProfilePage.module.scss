@@ -101,12 +101,10 @@
 
 .exitButton {
   @extend .editButton;
-  background: none;
-  background-color: rgb(223, 67, 62);
+  background: linear-gradient(135deg, #ce322f, #ce110e);
 
   &:hover {
-    background: none;
-    background-color: rgb(201, 26, 26);
+    background: linear-gradient(135deg, #e72f2f, #e71414);
   }
 }
 

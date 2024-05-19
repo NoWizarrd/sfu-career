@@ -61,16 +61,15 @@
   }
 }
 
-.messageButton {
+.editButton{
   @extend .applyButton;
-  background: none;
-  background-color: #fff;
-  color: rgb(245, 168, 26);
-  border: 2px solid rgb(245, 168, 26);
+}
+
+.deleteButton {
+  @extend .applyButton;
+  background: linear-gradient(135deg, #ce322f, #ce110e);
   &:hover {
-    background: none;
-    background-color: rgb(245, 168, 26);
-    color: #fff;
+    background: linear-gradient(135deg, #e72f2f, #e71414);
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
+import {jwtDecode} from "jwt-decode";
 import styles from "./VacancyDetailPage.module.scss";
 import Loader from "../../components/loader/Loader";
 import ModalNotAuth from "../../components/modals/ModalNotAuth";
@@ -24,6 +25,13 @@ interface CompanyData {
     website: string;
 }
 
+interface JWT {
+    _id: string;
+    user: "student" | "company";
+    exp: number;
+    iat: number;
+}
+
 const fetchVacancy = async (id: string) => {
     const token = localStorage.getItem("token");
     const response = await fetch(`http://localhost:4444/vacancies/${id}`, {
@@ -45,12 +53,21 @@ const VacancyDetailPage: React.FC = () => {
     const { vacancyId } = useParams<{ vacancyId: string }>();
     const { data: vacancy, isLoading, error } = useQuery<VacancyData>(["vacancy", vacancyId], () => fetchVacancy(vacancyId!));
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
+    
+    let userType: string | undefined;
+    let userId: string | undefined;
+    if (token) {
+        const decodedToken = jwtDecode<JWT>(token);
+        userType = decodedToken.user;
+        userId = decodedToken._id;
+    }
+
     function handleUnauthorizedAction() {
         setIsModalOpen(true);
     }
-    
-    if (isLoading) return <Loader/>
+
+    if (isLoading) return <Loader />
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
 
     return (
@@ -64,24 +81,36 @@ const VacancyDetailPage: React.FC = () => {
                             <p><strong>Статус: </strong>{vacancy.isOpen ? "Открыта" : "Закрыта"}</p>
                         </div>
                         <div className={styles.buttonGroup}>
-                            <button className={styles.applyButton}
-                                    onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
-                            >
-                                Подать заявку
-                            </button>
-                            <button className={styles.messageButton} 
-                                    onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
-                            >
-                                Написать сообщение
-                            </button>
+                            {userType !== "company" ? (
+                                <button className={styles.applyButton}
+                                        onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                                >
+                                    Откликнуться
+                                </button>
+                            ) : (
+                                userId === vacancy.company._id && (
+                                    <>
+                                    <button className={styles.editButton}
+                                            onClick={() => null}
+                                    >
+                                        Редактировать
+                                    </button>
+                                    <button className={styles.deleteButton}
+                                            onClick={() => null}
+                                    >
+                                        Удалить
+                                    </button>
+                                    </>
+                                )
+                            )}
                         </div>
                     </div>
-                        <Link to={`/company/${vacancy.company._id}`}>
-                            <div className={styles.companyInfo}>
-                                    <h3>{vacancy.company.name}</h3>
-                                    <p>{vacancy.company.location}</p>
-                            </div>
-                        </Link>
+                    <Link to={`/company/${vacancy.company._id}`}>
+                        <div className={styles.companyInfo}>
+                            <h3>{vacancy.company.name}</h3>
+                            <p>{vacancy.company.location}</p>
+                        </div>
+                    </Link>
                     <div className={`${styles.vacancyDetails} ${styles.sectionSeparator}`}>
                         <p><strong>Навыки: </strong>{vacancy.requiredSkills.join(", ")}</p>
                         <p><strong>Описание: </strong>{vacancy.description}</p>
@@ -91,7 +120,7 @@ const VacancyDetailPage: React.FC = () => {
             ) : (
                 <div className={styles.pageContainer}>Вакансия не найдена</div>
             )}
-                {isModalOpen && (
+            {isModalOpen && (
                 <ModalNotAuth onClose={() => setIsModalOpen(false)}>
                     <p>Для выполнения этого действия необходимо авторизоваться</p>
                 </ModalNotAuth>
