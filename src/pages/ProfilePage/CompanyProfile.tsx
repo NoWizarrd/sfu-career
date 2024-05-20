@@ -203,7 +203,6 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         <div>Ошибка загрузки данных компании.</div>
       </div>
     );
-    console.log(formData)
   return (
     <div className={styles.pageContainer}>
       <div className={styles.companyProfile}>
@@ -280,7 +279,7 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 ) : (
                   <button className={styles.editButton} onClick={() => {
                     setIsEditing(true);
-                  }}>Изменить данные</button>
+                  }}>Редактировать профиль</button>
                 )}
                 {!isEditing && (
                   <button className={styles.exitButton} onClick={exitFromProfile}>

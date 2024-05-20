@@ -328,7 +328,7 @@ const StudentProfile: React.FC = () => {
                             ) : (
                                 <button className={styles.editButton} onClick={() => {
                                     setIsEditing(true);
-                                }}>Изменить данные</button>
+                                }}>Редактировать профиль</button>
                             )}
                             {!isEditing && (
                                 <button className={styles.exitButton} onClick={exitFromProfile}>

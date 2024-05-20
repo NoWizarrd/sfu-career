@@ -2,10 +2,10 @@
   background-color: #ffffff;
   color: #333;
   padding: 20px;
-  height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
   display: flex;
-  justify-content: center;
-  align-items: start;
+  flex-direction: column;
+  align-items: center;
 }
 
 .vacancyDetailContainer {
@@ -17,7 +17,7 @@
   max-width: 1000px;
   position: relative;
   margin-top: 20px;
-  z-index: 10; /* Ensure it is above other elements */
+
 }
 
 .vacancyHeader {
@@ -34,11 +34,14 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  p {
-    margin-right: 20px;
-    font-size: 16px;
-  }
 }
+
+.vacancyMetaEdit div {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+
 
 .buttonGroup {
   display: flex;
@@ -61,7 +64,7 @@
   }
 }
 
-.editButton{
+.editButton {
   @extend .applyButton;
 }
 
@@ -90,7 +93,7 @@
   margin-bottom: 5px;
 }
 
-.companyInfo p {
+.companyInfo div {
   font-size: 14px;
   color: #666;
   margin: 5px 0;
@@ -104,7 +107,7 @@
 }
 
 .vacancyDetails {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .vacancyDetails p {
@@ -119,6 +122,126 @@
 
 .sectionSeparator {
   border-top: 1px solid #eee;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+/* New styles for edit fields */
+.vacancyDetailContainer input,
+.vacancyDetailContainer textarea,
+.vacancyDetailContainer .skillSelect {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.vacancyDetailContainer .skillSelect {
+  min-height: 44px;
+}
+
+.vacancyDetailContainer textarea {
+  resize: vertical;
+  min-height: 100px;
+  margin-top: 5px;
+}
+
+.vacancyDetailContainer h2,
+.vacancyDetailContainer p {
+  margin: 0 0 10px;
+}
+
+.saveButton, .changePasswordButton, .cancelButton{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #4CAF50; 
+  color: white;
+  &:hover {
+      background-color: #45a049; 
+  }
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  &:hover {
+      background-color: #e53935;
+  }
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  &:first-child{
+    margin-top: 5px;
+  }
+}
+
+.benefitItem input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.removeButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.removeButton:hover {
+  background-color: #e53935;
+}
+
+.addButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+.benefitsList {
+  list-style-type: disc;
+  padding-left: 20px;
+    margin-top: 10px;
+}
+
+.benefitsList li {
+  margin-bottom: 5px;
+}
+
+.skills {
+  font-size: 16px;
+  line-height: 1.5;
+
+  .skill {
+      display: inline-block;
+      padding: 3px 10px;
+      margin: 2px;
+      background-color: #36332e;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: bold;
+  }
 }
