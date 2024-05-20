@@ -71,8 +71,6 @@
   opacity: 1;
 }
 
-
-
 .profileInfo {
   display: flex;
   flex-direction: column;
@@ -90,6 +88,25 @@
   flex-direction: column;
   gap: 10px;
   margin-left: 20px;
+}
+
+.fieldContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.fieldContainer strong {
+  margin-right: 10px;
+}
+
+.fieldContainer input {
+  margin: auto;
+  padding: 6px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .profileDetails {
@@ -119,6 +136,19 @@
 .profileDetailsSectionFirst {
   @extend .profileDetailsSection;
   margin-bottom: 0;
+}
+
+.website {
+  color: #1a5bbf !important;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.website:hover,
+.website:focus {
+  color: #1a5bbf;
+  text-decoration: underline;
 }
 
 .editButton, .exitButton, .messageButton {
@@ -176,17 +206,21 @@
   }
 }
 
-
-
-.editText {
+.editSmallText {
   width: 100%;
   max-width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box; 
-  overflow: hidden; 
+  box-sizing: border-box;
+}
+
+.editText {
+  @extend .editSmallText;
+  min-height: 100px; 
+  overflow: auto; 
+  resize: vertical;
 }
 
 .skills {

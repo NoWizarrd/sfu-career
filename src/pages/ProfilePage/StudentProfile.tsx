@@ -40,7 +40,7 @@ interface SkillOption {
     value: string;
     label: string;
 }
-interface FormData {
+interface StudentFormData {
     avatarUrl?: string;
     avatarFile?: File;
     personalSkills?: SkillOption[];
@@ -152,7 +152,7 @@ const StudentProfile: React.FC = () => {
     const { profileId } = useParams<{ profileId: string }>();
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState<Partial<FormData>>({});
+    const [formData, setFormData] = useState<Partial<StudentFormData>>({});
     const [skills, setSkills] = useState<SkillOption[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { data: studentData, isError, isLoading, refetch } = useQuery<StudentData>(["student", profileId], () => getStudent(profileId!));
@@ -281,11 +281,17 @@ const StudentProfile: React.FC = () => {
             <div className={styles.studentProfile}>
                 <div className={styles.profileHeader}>
                 <div className={`${styles.profilePhotoContainer} ${isEditing ? 'editing' : ''}`}>
-                    <img
-                        src={formData.avatarUrl ? `${baseURL}${formData.avatarUrl}` : studentData.avatarUrl ? `${baseURL}${studentData.avatarUrl}` : noAvatar}
-                        alt="avatar"
-                        className={styles.profilePhoto}
-                    />
+                <img
+                    src={
+                        formData.avatarUrl && !formData.avatarUrl.startsWith('/uploads')
+                            ? formData.avatarUrl
+                            : studentData.avatarUrl
+                                ? studentData.avatarUrl.startsWith('http') ? studentData.avatarUrl : `${baseURL}${studentData.avatarUrl}`
+                                : noAvatar
+                    }
+                    alt="avatar"
+                    className={styles.profilePhoto}
+                />
                     {isEditing && (
                         <label className={styles.avatarLabel}>
                             <input type="file" accept="image/*" onChange={handleAvatarChange} className={styles.avatarInput} />

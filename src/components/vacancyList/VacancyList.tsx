@@ -29,7 +29,6 @@ const fetchCompanyVacancies = async (companyId: string) => {
 const VacancyList: React.FC<{ companyId: string }> = ({ companyId }) => {
     const { data: vacancies, isLoading, error } = useQuery<VacancyData[]>(["vacancies", companyId], () => fetchCompanyVacancies(companyId));
     const navigate = useNavigate();
-    console.log(vacancies)
     if (isLoading) return <div className={styles.noVacancies}>Загрузка вакансий</div>;
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
 
