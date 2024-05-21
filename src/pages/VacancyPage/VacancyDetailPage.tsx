@@ -146,6 +146,7 @@ const VacancyDetailPage: React.FC = () => {
     const [formData, setFormData] = useState<Partial<VacancyData>>({});
     const [skills, setSkills] = useState<SkillOption[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [errors, setErrors] = useState<{ benefits?: string[] }>({});
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
     const token = localStorage.getItem('token');
@@ -192,7 +193,21 @@ const VacancyDetailPage: React.FC = () => {
     };
 
     const handleSave = async () => {
+        const benefitsErrors: string[] = [];
+        if (formData.benefits) {
+            formData.benefits.forEach((benefit, index) => {
+                if (!benefit) {
+                    benefitsErrors[index] = "Поле не может быть пустым";
+                }
+            });
+        }
+
+        if (benefitsErrors.length > 0) {
+            setErrors({ benefits: benefitsErrors });
+            return;
+        }
         try {
+            
             await updateVacancy(vacancyId!, formData);
             refetch();
             setIsEditing(false);
@@ -291,8 +306,6 @@ const VacancyDetailPage: React.FC = () => {
                                     <>
                                         {isEditing ? (
                                             <>
-                                                <button className={styles.saveButton} onClick={handleSave}>Сохранить</button>
-                                                <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Отмена</button>
                                             </>
                                         ) : (
                                             <>
@@ -363,11 +376,15 @@ const VacancyDetailPage: React.FC = () => {
                                                 onChange={(e) => handleBenefitChange(e, index)}
                                                 className={styles.editSmallText}
                                             />
+                                            {errors.benefits && errors.benefits[index] && (
+                                                <span className={styles.errorMessage}>{errors.benefits[index]}</span>
+                                            )}
                                             <button type="button" onClick={() => handleRemoveBenefit(index)} className={styles.removeButton}>
                                                 Удалить
                                             </button>
                                         </div>
                                     ))}
+
                                     <button type="button" onClick={handleAddBenefit} className={styles.addButton}>
                                         Добавить преимущество
                                     </button>
@@ -380,6 +397,14 @@ const VacancyDetailPage: React.FC = () => {
                                 </ul>
                             )}
                         </div>
+                        {
+                            isEditing ?
+                            <div className={styles.buttonGroup}>
+                            <button className={styles.saveButton} onClick={handleSave}>Сохранить</button>
+                            <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Отмена</button>
+                            </div>
+                        :null
+                        }
                     </div>
                 </div>
             ) : (

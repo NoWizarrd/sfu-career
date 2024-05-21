@@ -313,7 +313,13 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           </div>
           {profileId === myId ? (
             <div>
-              <h2>Активные вакансии</h2>
+              <div>
+                <h2>Активные вакансии 
+                  <button className={styles.addButton} onClick={() => navigate('/vacancy/new')}>
+                    Добавить вакансию
+                  </button>
+                </h2>
+              </div>
               <VacancyList companyId={companyData._id} />
             </div>
           ) : null}

@@ -237,3 +237,18 @@
       font-weight: bold;
   }
 }
+
+.addButton {
+  padding: 10px 10px;
+  margin-left: 10px;
+  font-size: 14px;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #45a049; 
+  }
+}

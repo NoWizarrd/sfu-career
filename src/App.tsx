@@ -10,6 +10,7 @@ import StudentProfile from "./pages/ProfilePage/StudentProfile"
 import CompanyProfile from "./pages/ProfilePage/CompanyProfile"
 import SearchVacanciesPage from "./pages/SearchPage/SearchVacanciesPage"
 import VacancyDetailPage from "./pages/VacancyPage/VacancyDetailPage"
+import CreateVacancyPage from "./pages/VacancyPage/CreateVacancyPage"
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "search/vacancy",
         element: <SearchVacanciesPage />,
+      },
+      {
+        path: "/vacancy/new",
+        element: <CreateVacancyPage  />,
       },
       {
         path: "notfound",

@@ -41,8 +41,6 @@
   font-size: 16px;
 }
 
-
-
 .buttonGroup {
   display: flex;
   gap: 10px;
@@ -124,8 +122,7 @@
   border-top: 1px solid #eee;
   margin-top: 10px;
   padding-top: 10px;
-}
-
+} 
 /* New styles for edit fields */
 .vacancyDetailContainer input,
 .vacancyDetailContainer textarea,
@@ -178,14 +175,40 @@
   }
 }
 
+.errorMessage {
+  position: absolute;
+  bottom: -5px; 
+  color: red;
+  font-size: 14px;
+  margin-top: 2px;
+  align-self: flex-start;
+}
+
+.fieldContainer {
+  position: relative;
+  margin-bottom: 30px;
+  .errorMessage{
+    bottom: -18px;
+  }
+}
+.fieldContainerSalary{
+  @extend .fieldContainer;
+  margin-bottom: 3px;
+  .errorMessage{
+    bottom: -25px;
+  }
+}
+
 .benefitItem {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  &:first-child{
+  &:first-child {
     margin-top: 5px;
   }
 }
+
 
 .benefitItem input {
   flex: 1;
@@ -209,6 +232,7 @@
 .addButton {
   background-color: #4CAF50;
   color: white;
+  margin-bottom: 20px;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -224,7 +248,7 @@
 .benefitsList {
   list-style-type: disc;
   padding-left: 20px;
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .benefitsList li {
