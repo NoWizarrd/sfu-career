@@ -112,6 +112,7 @@ const CreateVacancyPage: React.FC = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+        if (!token) navigate('/notfound');
         if (token) {
             const decodedToken = jwtDecode<JWT>(token);
             if (decodedToken.user === "student") {
