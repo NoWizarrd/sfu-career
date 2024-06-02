@@ -311,18 +311,18 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               <p>{companyData.description}</p>
             )}
           </div>
-          {profileId === myId ? (
             <div>
               <div>
                 <h2>Активные вакансии 
+                  {profileId === myId ? (
                   <button className={styles.addButton} onClick={() => navigate('/vacancy/new')}>
                     Добавить вакансию
                   </button>
+                  ) : null}
                 </h2>
               </div>
               <VacancyList companyId={companyData._id} />
             </div>
-          ) : null}
         </div>
       </div>
       {isModalOpen && (
