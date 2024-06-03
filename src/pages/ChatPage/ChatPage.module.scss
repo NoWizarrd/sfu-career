@@ -1,0 +1,144 @@
+.pageContainer {
+    display: flex;
+    height: calc(100vh - 160px);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .chatContainer {
+    display: flex;
+    height: 90%;
+    width: 50%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chatList {
+    width: 30%;
+    max-width: 200px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+  }
+
+  .chatList::-webkit-scrollbar {
+    width: 0; 
+    background: transparent; 
+  }
+  
+  .chatItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+  
+  .activeChat {
+    background-color: #e0e0e0;
+  }
+  
+  .chatInfo {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .chatTitle {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .chatWindow {
+    width: 79%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .messagesContainer {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .messagesContainer::-webkit-scrollbar {
+    width: 0;
+    background: transparent; 
+  }
+  
+  .message {
+    max-width: 60%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+  }
+  
+  .userMessage {
+    align-self: flex-end;
+    background-color: #d1e7dd;
+    text-align: right;
+  }
+  
+  .partnerMessage {
+    align-self: flex-start;
+    background-color: #ffe2c6;
+    text-align: left;
+  }
+  
+  .messageSender {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .messageText {
+    font-size: 14px;
+  }
+  
+  .sendMessageContainer {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  .sendMessageTextarea {
+    flex-grow: 1;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+  
+  .sendMessageButton {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+  
+  .noChatsMessage {
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+  }

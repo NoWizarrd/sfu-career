@@ -11,6 +11,7 @@ import CompanyProfile from "./pages/ProfilePage/CompanyProfile"
 import SearchVacanciesPage from "./pages/SearchPage/SearchVacanciesPage"
 import VacancyDetailPage from "./pages/VacancyPage/VacancyDetailPage"
 import CreateVacancyPage from "./pages/VacancyPage/CreateVacancyPage"
+import ChatPage from "./pages/ChatPage/ChatPage"
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/vacancy/new",
         element: <CreateVacancyPage  />,
+      },
+      {
+        path: "/chats",
+        element: <ChatPage  />,
       },
       {
         path: "notfound",

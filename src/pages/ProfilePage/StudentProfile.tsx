@@ -9,6 +9,7 @@ import PracticeList from "../../components/practiceList/PracticeList";
 import Select, { MultiValue, StylesConfig } from "react-select";
 import ChangePasswordModal from "../../components/modals/ModalChangePassword/ChangePasswordModal";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
+import ModalChat from "../../components/modals/ModalChat/ModalChat";
 
 interface StudentData {
     _id: string;
@@ -158,6 +159,8 @@ const StudentProfile: React.FC = () => {
     const { data: studentData, isError, isLoading, refetch } = useQuery<StudentData>(["student", profileId], () => getStudent(profileId!));
     const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
     const [passwordChangeMessage, setPasswordChangeMessage] = useState('');
+    const [isMessageSent, setIsMessageSent] = useState(false);
+    const [isChatModalOpen, setIsChatModalOpen] = useState(false);    
 
    
     useEffect(() => {
@@ -179,11 +182,44 @@ const StudentProfile: React.FC = () => {
 
     const token = localStorage.getItem("token");
     let myId: string | undefined;
+    let userType: string | undefined;
+
     if (token) {
-        const { _id } = jwtDecode<JWT>(token);
+        const { _id, user } = jwtDecode<JWT>(token);
         myId = _id;
+        userType = user;
     }
 
+    const handleSendMessage = async (message: string) => {
+        try {
+            const response = await fetch("http://localhost:4444/chats/message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    sender: myId,
+                    senderModel: userType,
+                    recipient: profileId,
+                    recipientModel: "Student",
+                    text: message,
+                    isResponseToVacancy: false,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+    
+            setIsMessageSent(true);
+            setTimeout(() => setIsMessageSent(false), 1500);
+            setIsChatModalOpen(false);  // Закрываем модальное окно после успешной отправки
+        } catch (error) {
+            console.error("Ошибка при отправке сообщения:", error);
+        }
+    };
+    
+    
     const exitFromProfile = () => {
         window.localStorage.removeItem("token");
         navigate("/login");
@@ -217,7 +253,9 @@ const StudentProfile: React.FC = () => {
     const handleChangePassword = () => {
         setIsChangePasswordModalOpen(true);
     };
-
+    const handleOpenChatModal = () => {
+        setIsChatModalOpen(true);
+    };
     const handleSavePassword = async (newPassword: string) => {
         try {
             const token = localStorage.getItem("token");
@@ -339,7 +377,7 @@ const StudentProfile: React.FC = () => {
                         ) : (
                             <button
                                 className={styles.messageButton}
-                                onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                                onClick={token ? handleOpenChatModal : handleUnauthorizedAction}
                             >
                                 Отправить сообщение
                             </button>
@@ -413,6 +451,19 @@ const StudentProfile: React.FC = () => {
                     message={passwordChangeMessage}
                     onClose={() => setPasswordChangeMessage('')}
                 />
+            )}
+            {isChatModalOpen && (
+                <ModalChat
+                    isOpen={isChatModalOpen}
+                    onClose={() => setIsChatModalOpen(false)}
+                    onSend={handleSendMessage}
+                />
+            )}
+            {isMessageSent && (
+                <ModalMessage 
+                onClose={() => setIsMessageSent(false)}
+                message={`Сообщение отправлено`}>
+                </ModalMessage>
             )}
         </div>
     );

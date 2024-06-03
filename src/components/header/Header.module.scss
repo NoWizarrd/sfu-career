@@ -71,6 +71,7 @@
 
 .navSection {
   display: flex;
+  position: relative;
   gap: 20px;
   align-items: center;
 }
@@ -95,4 +96,17 @@
 
 .navButton.myProfile {
   border-bottom: 3px solid #F9B21A; /* Оранжевая линия для собственного профиля */
+}
+
+.chatIcon{
+  height: 30px; 
+  margin-right: 10px;
+}
+
+.chatDiv {
+  display: flex;
+  position: absolute;
+  left: -6vw;
+  cursor: pointer;
+  margin-left: 2vw;
 }

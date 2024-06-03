@@ -146,9 +146,13 @@ const VacancyDetailPage: React.FC = () => {
     const [formData, setFormData] = useState<Partial<VacancyData>>({});
     const [skills, setSkills] = useState<SkillOption[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isMessageSend, setIsMessageSend] = useState(false);
     const [errors, setErrors] = useState<{ benefits?: string[] }>({});
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
+    const [hasApplied, setHasApplied] = useState(false);
+    const [isCheckingApplied, setIsCheckingApplied] = useState(true);
+
     const token = localStorage.getItem('token');
 
     let userType: string | undefined;
@@ -158,6 +162,51 @@ const VacancyDetailPage: React.FC = () => {
         userType = decodedToken.user;
         userId = decodedToken._id;
     }
+
+    const checkIfApplied = async () => {
+        try {
+            const response = await fetch(`http://localhost:4444/chats`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+    
+            if (response.ok) {
+                const chats = await response.json();
+                let hasAppliedToVacancy = false;
+    
+                for (const chat of chats) {
+                    const messagesResponse = await fetch(`http://localhost:4444/chats/${chat._id}/messages`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+    
+                    if (messagesResponse.ok) {
+                        const messages = await messagesResponse.json();
+                        if (messages.some((message: { sender: string | undefined; vacancyId: string | undefined; }) => message.sender === userId && message.vacancyId === vacancyId)) {
+                            hasAppliedToVacancy = true;
+                            break;
+                        }
+                    }
+                }
+    
+                setHasApplied(hasAppliedToVacancy);
+            }
+        } catch (error) {
+            console.error("Ошибка при проверке отклика на вакансию:", error);
+        } finally {
+            setIsCheckingApplied(false);
+        }
+    };
+    
+    useEffect(() => {
+        if (vacancy && userType === "student") {
+            checkIfApplied();
+        } else {
+            setIsCheckingApplied(false);
+        }
+    }, [vacancy]);
 
     useEffect(() => {
         fetchSkills().then(data => setSkills(data));
@@ -177,6 +226,38 @@ const VacancyDetailPage: React.FC = () => {
             });
         }
     }, [vacancy, skills]);
+    
+
+    const handleApply = async () => {
+        try {
+            const response = await fetch("http://localhost:4444/chats/message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    sender: userId,
+                    senderModel: userType,
+                    recipient: vacancy?.company._id,
+                    recipientModel: "Company",
+                    text: `Студент откликнулся на вакансию ${vacancy?.title}`,
+                    isResponseToVacancy: true,
+                    vacancyId: vacancy?._id,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            setIsMessageSend(true);
+            setHasApplied(true);
+            setTimeout(() => setIsMessageSend(false), 1500);
+        } catch (error) {
+            console.error("Ошибка при отклике на вакансию:", error);
+        }
+    };
+
 
     function handleUnauthorizedAction() {
         setIsModalOpen(true);
@@ -246,7 +327,7 @@ const VacancyDetailPage: React.FC = () => {
         setIsDeleteModalOpen(true);
     };
 
-    if (isLoading) return <Loader />
+    if (isLoading || isCheckingApplied) return <Loader />;
     if (error) return <div className={styles.pageContainer}>Ошибка загрузки данных.</div>;
 
     return (
@@ -298,14 +379,20 @@ const VacancyDetailPage: React.FC = () => {
                         </div>
                         <div className={styles.buttonGroup}>
                             {userType !== "company" ? (
-                                <button className={styles.applyButton} onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}>
-                                    Откликнуться
-                                </button>
+                                hasApplied ? (
+                                    <p>Вы уже откликнулись на вакансию</p>
+                                ) : (
+                                    <button className={styles.applyButton} onClick={token ? handleApply : handleUnauthorizedAction}>
+                                        Откликнуться
+                                    </button>
+                                )
                             ) : (
                                 userId === vacancy.company._id && (
                                     <>
                                         {isEditing ? (
                                             <>
+                                                <button className={styles.saveButton} onClick={handleSave}>Сохранить</button>
+                                                <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Отмена</button>
                                             </>
                                         ) : (
                                             <>
@@ -414,6 +501,12 @@ const VacancyDetailPage: React.FC = () => {
                 <ModalMessage 
                 onClose={() => setIsModalOpen(false)}
                 message="Для выполнения этого действия необходимо авторизоваться">
+                </ModalMessage>
+            )}
+            {isMessageSend && (
+                <ModalMessage 
+                onClose={() => setIsMessageSend(false)}
+                message={`Вы откликнулись на вакансию ${vacancy?.title}`}>
                 </ModalMessage>
             )}
             {vacancy && isDeleteModalOpen && (

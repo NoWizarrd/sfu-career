@@ -8,6 +8,7 @@ import Loader from "../../components/loader/Loader";
 import VacancyList from "../../components/vacancyList/VacancyList";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 import ChangePasswordModal from "../../components/modals/ModalChangePassword/ChangePasswordModal";
+import ModalChat from "../../components/modals/ModalChat/ModalChat";
 
 interface CompanyData {
   _id: string;
@@ -96,12 +97,16 @@ const CompanyProfile: React.FC = () => {
   const { data: companyData, isError, isLoading, refetch } = useQuery<CompanyData>(["company", profileId], () => getCompany(profileId!));
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [passwordChangeMessage, setPasswordChangeMessage] = useState('');
+  const [isMessageSent, setIsMessageSent] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);   
 
   const token = localStorage.getItem("token");
   let myId: string | undefined;
+  let userType: string | undefined;
   if (token) {
-    const { _id } = jwtDecode<JWT>(token);
-    myId = _id;
+      const { _id, user } = jwtDecode<JWT>(token);
+      myId = _id;
+      userType = user;
   }
 
   useEffect(() => {
@@ -115,6 +120,38 @@ const CompanyProfile: React.FC = () => {
     }
   }, [companyData]);
 
+  const handleSendMessage = async (message: string) => {
+    try {
+        const response = await fetch("http://localhost:4444/chats/message", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                sender: myId,
+                senderModel: userType,
+                recipient: profileId,
+                recipientModel: "Company",
+                text: message,
+                isResponseToVacancy: false,
+            }),
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        setIsMessageSent(true);
+        setTimeout(() => setIsMessageSent(false), 1500);
+        setIsChatModalOpen(false);  // Закрываем модальное окно после успешной отправки
+    } catch (error) {
+        console.error("Ошибка при отправке сообщения:", error);
+    }
+};
+
+  const handleOpenChatModal = () => {
+    setIsChatModalOpen(true);
+  };
   const exitFromProfile = () => {
     window.localStorage.removeItem("token");
     navigate("/login");
@@ -289,10 +326,10 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               </>
             ) : (
               <button
-                className={styles.messageButton}
-                onClick={token ? () => { /* логика для авторизованных пользователей */ } : handleUnauthorizedAction}
+                  className={styles.messageButton}
+                  onClick={token ? handleOpenChatModal : handleUnauthorizedAction}
               >
-                Отправить сообщение
+                  Отправить сообщение
               </button>
             )}
           </div>
@@ -343,6 +380,19 @@ const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           message={passwordChangeMessage}
           onClose={() => setPasswordChangeMessage('')}
         />
+      )}
+      {isChatModalOpen && (
+          <ModalChat
+              isOpen={isChatModalOpen}
+              onClose={() => setIsChatModalOpen(false)}
+              onSend={handleSendMessage}
+          />
+      )}
+      {isMessageSent && (
+          <ModalMessage 
+          onClose={() => setIsMessageSent(false)}
+          message={`Сообщение отправлено`}>
+          </ModalMessage>
       )}
     </div>
   );

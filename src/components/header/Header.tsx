@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import checkAuth from "../../scripts/checkAuth";
+import chat from "../../assets/chat.png"; 
 
 interface JWT {
     _id: string;
@@ -62,6 +63,9 @@ export default function Header() {
                         </div>
                     ) : (
                         <div className={`${styles.navSection} ${styles.right2}`}>
+                            <Link to="/chats" className={styles.chatDiv}>
+                                <img src={chat} className={styles.chatIcon}/>
+                            </Link>
                             <Link to={myProfile ? `/${myProfile.user}/${myProfile._id}` : "/"} 
                             className={`${styles.navButton} ${isProfileActive ? styles.active : ''} 
                             ${isProfileActive ? styles.myProfile : ''} ${isOtherStudentProfile ? styles.studentProfile : ''} 
