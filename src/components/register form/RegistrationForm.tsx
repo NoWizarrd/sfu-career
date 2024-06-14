@@ -48,8 +48,8 @@ return (
         <input className={styles.input} type="text" placeholder="Курс" value={course} onChange={(e) => setCourse(e.target.value)} />
         <input className={styles.input} type="text" placeholder="Специальность" value={specialty} onChange={(e) => setSpecialty(e.target.value)} />
         <input className={styles.input} type="text" placeholder="Институт" value={institute} onChange={(e) => setInstitute(e.target.value)} />
-        <input className={styles.input} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input className={styles.input} name="password1" type="password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className={styles.input} type="email" placeholder="Email" autocomplete="new-password" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input className={styles.input} name="password1" type="password" autocomplete="new-password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className={styles.input} name="password2" type="password" placeholder="Подтвердить пароль" />
         <div>
             <button className={styles.submitBtn} type="submit">Зарегистрироваться</button>

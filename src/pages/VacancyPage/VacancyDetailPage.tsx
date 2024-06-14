@@ -391,8 +391,8 @@ const VacancyDetailPage: React.FC = () => {
                                     <>
                                         {isEditing ? (
                                             <>
-                                                <button className={styles.saveButton} onClick={handleSave}>Сохранить</button>
-                                                <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Отмена</button>
+                                                
+                                                
                                             </>
                                         ) : (
                                             <>
