@@ -25,7 +25,7 @@ interface Chat {
   messages: Message[];
 }
 
-interface Participant {
+interface Participant { 
   _id: string;
   name?: string;
   surname?: string;
