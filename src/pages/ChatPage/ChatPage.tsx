@@ -27,7 +27,7 @@ interface Chat {
 
 interface Participant { 
   _id: string;
-  name?: string;
+  name?: string; 
   surname?: string;
 }
 
