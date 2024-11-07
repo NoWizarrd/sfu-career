@@ -9,84 +9,9 @@ import VacancyList from "../../components/vacancyList/VacancyList";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 import ChangePasswordModal from "../../components/modals/ModalChangePassword/ChangePasswordModal";
 import ModalChat from "../../components/modals/ModalChat/ModalChat";
+import { CompanyData, CompanyFormData, JWT } from "../../types/DataTypes";
+import { getCompany, updateCompanyProfile, uploadImage } from "./CompanyProfileAsync";
 
-interface CompanyData {
-  _id: string;
-  name: string;
-  industry: string;
-  location: string;
-  description: string;
-  avatarUrl: string;
-  website: string;
-}
-
-interface JWT {
-  _id: string;
-  user: "student" | "company";
-  exp: number;
-  iat: number;
-}
-
-interface CompanyFormData {
-  avatarUrl?: string;
-  avatarFile?: File;
-  location?: string;
-  description?: string;
-  website: string;
-}
-
-const getCompany = async (id: string): Promise<CompanyData> => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:4444/companies/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-const updateCompanyProfile = async (id: string, data: Partial<CompanyData>) => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:4444/companies/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  return response.json();
-};
-
-const uploadImage = async (file: File): Promise<string> => {
-  const formData = new FormData();
-  formData.append('image', file);
-
-  const token = localStorage.getItem("token");
-  const response = await fetch('http://localhost:4444/upload', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error('Ошибка при загрузке изображения');
-  }
-
-  const data = await response.json();
-  return data.url;
-};
 
 const CompanyProfile: React.FC = () => {
   const { profileId } = useParams();
@@ -143,7 +68,7 @@ const CompanyProfile: React.FC = () => {
 
         setIsMessageSent(true);
         setTimeout(() => setIsMessageSent(false), 1500);
-        setIsChatModalOpen(false);  // Закрываем модальное окно после успешной отправки
+        setIsChatModalOpen(false);
     } catch (error) {
         console.error("Ошибка при отправке сообщения:", error);
     }

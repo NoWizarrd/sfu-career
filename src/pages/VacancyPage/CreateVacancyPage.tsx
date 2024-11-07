@@ -4,32 +4,11 @@ import Select, { MultiValue, StylesConfig } from "react-select";
 import styles from "./VacancyDetailPage.module.scss";
 import { jwtDecode } from "jwt-decode";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
+import { JWT, Skill, VacancyData } from "../../types/DataTypes";
 
 interface SkillOption {
     value: string;
     label: string;
-}
-
-interface JWT {
-    _id: string;
-    user: "student" | "company";
-    exp: number;
-    iat: number;
-}
-
-interface Skill {
-    _id: string;
-    skill: string;
-}
-
-interface VacancyData {
-    title: string;
-    description: string;
-    requiredSkills: string[];
-    salary?: number;
-    benefits: string[];
-    isOpen: boolean;
-    company: string;
 }
 
 const createVacancy = async (data: Partial<VacancyData>) => {

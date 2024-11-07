@@ -10,116 +10,8 @@ import Select, { MultiValue, StylesConfig } from "react-select";
 import ChangePasswordModal from "../../components/modals/ModalChangePassword/ChangePasswordModal";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 import ModalChat from "../../components/modals/ModalChat/ModalChat";
-
-interface StudentData {
-    _id: string;
-    surname: string;
-    name: string;
-    patronymic: string;
-    institute: string;
-    specialty: string;
-    course: number;
-    practices: string[];
-    avatarUrl: string;
-    personalSkills: string[];
-    about: string;
-}
-
-interface Skill {
-    _id: string;
-    skill: string;
-}
-
-interface JWT {
-    _id: string;
-    user: "student" | "company";
-    exp: number;
-    iat: number;
-}
-
-interface SkillOption {
-    value: string;
-    label: string;
-}
-interface StudentFormData {
-    avatarUrl?: string;
-    avatarFile?: File;
-    personalSkills?: SkillOption[];
-    about?: string;
-}
-
-
-const getStudent = async (id: string): Promise<StudentData> => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:4444/students/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-
-    const data = await response.json();
-    return data;
-};
-
-const updateStudentProfile = async (id: string, data: Partial<StudentData>) => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:4444/students/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-    return response.json();
-};
-
-const fetchSkills = async (): Promise<SkillOption[]> => {
-    const token = localStorage.getItem('token')
-    try {
-        const response = await fetch('http://localhost:4444/skills', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-        });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data: Skill[] = await response.json();
-        return data.map(skill => ({ value: skill._id, label: skill.skill }));
-    } catch (error) {
-        console.error('Ошибка при получении данных о навыках:', error);
-        return [];
-    }
-};
-
-const uploadImage = async (file: File): Promise<string> => {
-    const formData = new FormData();
-    formData.append('image', file);
-
-    const token = localStorage.getItem("token");
-    const response = await fetch('http://localhost:4444/upload', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-    });
-
-    if (!response.ok) {
-        throw new Error('Ошибка при загрузке изображения');
-    }
-
-    const data = await response.json();
-    return data.url;
-};
-
+import { JWT, SkillOption, StudentData, StudentFormData } from "../../types/DataTypes";
+import { fetchSkills, getStudent, updateStudentProfile, uploadImage } from "./StudentProfileAsync";
 
 const customStyles: StylesConfig<SkillOption, true> = {
     control: (provided, state) => ({
@@ -213,7 +105,7 @@ const StudentProfile: React.FC = () => {
     
             setIsMessageSent(true);
             setTimeout(() => setIsMessageSent(false), 1500);
-            setIsChatModalOpen(false);  // Закрываем модальное окно после успешной отправки
+            setIsChatModalOpen(false);
         } catch (error) {
             console.error("Ошибка при отправке сообщения:", error);
         }
@@ -279,8 +171,6 @@ const StudentProfile: React.FC = () => {
             setPasswordChangeMessage('Ошибка при смене пароля');
         }
     };
-    
-    
 
     const handleSave = async () => {
         try {

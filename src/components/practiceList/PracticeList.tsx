@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import styles from "./PracticeList.module.scss";
-
-interface PracticeData {
-    _id: string;
-    rating: number;
-    company: { name: string } | null;
-    companyName: string;
-    practiceName: string;
-    course: number;
-    companyReview: string;
-}
+import { PracticeData } from "../../types/DataTypes";
 
 const fetchPractices = async (studentId: string) => {
     const token = localStorage.getItem("token");

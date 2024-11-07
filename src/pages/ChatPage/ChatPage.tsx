@@ -4,13 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import ModalChat from "../../components/modals/ModalChat/ModalChat";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import Loader from "../../components/loader/Loader";
-
-interface JWT {
-  _id: string;
-  user: "student" | "company";
-  exp: number;
-  iat: number;
-}
+import { fetchChats, fetchMessages, fetchParticipant } from "./ChatAsync";
+import { JWT } from "../../types/DataTypes";
 
 interface Message {
   sender: string;
@@ -24,61 +19,6 @@ interface Chat {
   participantsModel: string[];
   messages: Message[];
 }
-
-interface Participant { 
-  _id: string;
-  name?: string; 
-  surname?: string;
-}
-
-const fetchChats = async () => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:4444/chats`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-const fetchMessages = async (chatId: string) => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:4444/chats/${chatId}/messages`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-const fetchParticipant = async (id: string, model: string): Promise<Participant> => {
-  const token = localStorage.getItem("token");
-  const endpoint = model === "Company" ? "companies" : "students";
-  const response = await fetch(`http://localhost:4444/${endpoint}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data;
-};
 
 const ChatPage: React.FC = () => {
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);

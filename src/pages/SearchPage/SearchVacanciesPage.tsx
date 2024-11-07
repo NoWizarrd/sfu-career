@@ -4,6 +4,7 @@ import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
 import Select, { StylesConfig } from 'react-select';
 import Loader from "../../components/loader/Loader";
+import { Skill } from "../../types/DataTypes";
 
 interface CompanyData {
     _id: string;
@@ -31,12 +32,6 @@ interface SearchFilters {
     title: string;
     salarySpecified: boolean;
     company: string;
-}
-
-interface Skill {
-    _id: string;
-    skill: string;
-    __v: number;
 }
 
 const customStyles: StylesConfig<SkillsData, true> = {

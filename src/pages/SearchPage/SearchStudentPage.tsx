@@ -4,30 +4,14 @@ import styles from "./SearchPage.module.scss";
 import { Link } from "react-router-dom";
 import Select, { StylesConfig } from 'react-select';
 import Loader from "../../components/loader/Loader";
+import { Skill, StudentData } from "../../types/DataTypes";
 
-interface Student {
-    _id: string;
-    surname: string;
-    name: string;
-    patronymic: string;
-    institute: string;
-    course: number;
-    specialty: string;
-    avatarUrl: string;
-    personalSkills: string[];
-}
 
 interface SearchFilters {
     personalSkills: string[];
     course: string;
     specialty: string,
     institute: string;
-}
-
-interface Skill {
-    _id: string;
-    skill: string;
-    __v: number;
 }
 
 type SkillsData = { value: string; label: string };
@@ -112,7 +96,7 @@ const SearchStudentPage: React.FC = () => {
     })
     }, []);
 
-    const {data: searchResults, isLoading, error} = useQuery<Student[]>("students", fetchStudents, {keepPreviousData: true});
+    const {data: searchResults, isLoading, error} = useQuery<StudentData[]>("students", fetchStudents, {keepPreviousData: true});
 
     const handleFilterChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

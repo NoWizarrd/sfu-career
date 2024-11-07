@@ -7,6 +7,7 @@ import styles from "./VacancyDetailPage.module.scss";
 import Loader from "../../components/loader/Loader";
 import ModalMessage from "../../components/modals/ModalMessage/ModalMessage";
 import DeleteVacancyModal from "../../components/modals/ModalDeleteVacancy/DeleteVacancyModal";
+import { CompanyData, JWT, Skill } from "../../types/DataTypes";
 
 interface VacancyData {
     _id: string;
@@ -18,31 +19,12 @@ interface VacancyData {
     benefits: string[];
     isOpen: boolean;
 }
-interface CompanyData {
-    _id: string;
-    name: string;
-    industry: string;
-    location: string;
-    avatarUrl: string;
-    website: string;
-}
-
-interface JWT {
-    _id: string;
-    user: "student" | "company";
-    exp: number;
-    iat: number;
-}
 
 interface SkillOption {
     value: string;
     label: string;
 }
 
-interface Skill {
-    _id: string;
-    skill: string;
-}
 
 const fetchVacancy = async (id: string) => {
     const token = localStorage.getItem("token");
